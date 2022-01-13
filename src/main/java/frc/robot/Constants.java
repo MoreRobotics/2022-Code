@@ -18,6 +18,13 @@ public final class Constants {
     public static final int DRIVE_TRAIN_FRONT_RIGHT_ID = 4;
     public static final int DRIVE_TRAIN_REAR_LEFT_ID = 2;
     public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 5;
+
+    //shooter motors (change later)
+    public static final int SHOOTER_LEFT_ID = -1;
+    public static final int SHOOTER_RIGHT_ID = -1;
+    public static final int TURRET_MOTOR_ID = -1;
+
+    //controllers
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
 
