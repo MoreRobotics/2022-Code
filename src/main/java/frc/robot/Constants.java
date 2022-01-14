@@ -27,6 +27,9 @@ public final class Constants {
     //intake motor
     public static final int INTAKE_MOTOR_ID = -1;
 
+    //climber motors
+    public static final int CLIMBER_LEFT_MOTOR_ID = -1;
+    public static final int CLIMBER_RIGHT_MOTOR_ID = -1;
 
     //transporter motor
     public static final int TRANSPORTER_MOTOR_ID = -1;
