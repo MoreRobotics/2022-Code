@@ -24,7 +24,7 @@ public class Shooter extends SubsystemBase {
     shooterLeft = new WPI_TalonFX(Constants.SHOOTER_LEFT_ID);
     shooterRight = new WPI_TalonFX(Constants.SHOOTER_RIGHT_ID);
 
-    //resets encoders and stuff
+    //resets encoders
     shooterLeft.configFactoryDefault();
     shooterRight.configFactoryDefault();
 
@@ -47,14 +47,14 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  //motors go vroom
+  //motors go
   public void startShooter() {
 
     shooterLeft.set(ControlMode.PercentOutput, Constants.SHOOTER_SPEED);
 
   }
 
-  //motors no go vroom
+  //motors stop
   public void stopShooter() {
 
     shooterLeft.set(ControlMode.PercentOutput, 0);
