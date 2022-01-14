@@ -31,4 +31,10 @@ public final class Constants {
     public static final double EDGES_PER_REVOLUTION = 21448.15;
     //public static final double EDGES_PER_REVOLUTION = 2048;
     public static final double WHEEL_DIAMETER = .152;
+
+    //Shooter
+    public static final int kTimeoutMs = 30;
+    public static final double SHOOTER_SPEED = 1;
+    public static final double ENCODER_UNITS_TO_DEGREES = 4096.0/360.0 * 10;
+
 }

@@ -16,8 +16,10 @@ public class Turret extends SubsystemBase {
   XboxController operatorController;
   /** Creates a new Turret. */
   public Turret() {
+
     turretMotor = new TalonSRX(Constants.TURRET_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
+    
   }
 
   @Override
