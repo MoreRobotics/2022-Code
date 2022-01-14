@@ -6,21 +6,39 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
-  TalonSRX climberLeft, climberRight;
+  WPI_TalonFX climberLeft, climberRight;
   XboxController operatorController;
 
   public Climber() {
-    climberLeft = new TalonSRX(-1);
-    climberRight = new TalonSRX(-1);
+    climberLeft = new WPI_TalonFX(Constants.CLIMBER_LEFT_MOTOR_ID);
+    climberRight = new WPI_TalonFX(Constants.CLIMBER_RIGHT_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
 
+    //resets encoders
+    climberLeft.configFactoryDefault();
+    climberRight.configFactoryDefault();
+
+    //set motors to brake mode
+    climberLeft.setNeutralMode(NeutralMode.Brake);
+    climberRight.setNeutralMode(NeutralMode.Brake);
+
+    //sets the right climber motor to follow the left one
     climberRight.follow(climberRight);
+
+    //sets maximum and minimum power limits for the motors
+    climberLeft.configNominalOutputForward(0, Constants.kTimeoutMs);
+    climberLeft.configNominalOutputReverse(0, Constants.kTimeoutMs);
+    climberLeft.configPeakOutputForward(1, Constants.kTimeoutMs);
+    climberLeft.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
   }
 
