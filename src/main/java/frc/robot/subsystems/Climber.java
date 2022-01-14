@@ -27,10 +27,6 @@ public class Climber extends SubsystemBase {
     climberLeft.configFactoryDefault();
     climberRight.configFactoryDefault();
 
-    //set motors to brake mode
-    climberLeft.setNeutralMode(NeutralMode.Brake);
-    climberRight.setNeutralMode(NeutralMode.Brake);
-
     //sets the right climber motor to follow the left one
     climberRight.follow(climberRight);
 
