@@ -71,6 +71,10 @@ public class RobotContainer {
     operatorAButton.whenHeld(new RunShooter(shooter));
     
   }
+
+  public void climberHandler() {
+    
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
