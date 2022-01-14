@@ -24,6 +24,13 @@ public final class Constants {
     public static final int SHOOTER_RIGHT_ID = -1;
     public static final int TURRET_MOTOR_ID = -1;
 
+    //intake motor
+    public static final int INTAKE_MOTOR_ID = -1;
+
+
+    //transporter motor
+    public static final int TRANSPORTER_MOTOR_ID = -1;
+
     //controllers
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
@@ -37,4 +44,7 @@ public final class Constants {
     public static final double SHOOTER_SPEED = 1;
     public static final double ENCODER_UNITS_TO_DEGREES = 4096.0/360.0 * 10;
 
+    //Speeds
+    public static final double INTAKE_SPEED = 1.0;
+    public static final double TRANSPORTER_SPEED = 1.0;
 }

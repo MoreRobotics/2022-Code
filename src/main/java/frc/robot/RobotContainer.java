@@ -6,7 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.RunIntake;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -18,7 +23,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_DriveTrain = new DriveTrain();
+  DriveTrain driveTrain = new DriveTrain();
+  Shooter shooter = new Shooter();
+  Intake intake = new Intake();
+  Climber climber = new Climber();
+  Turret turret = new Turret();
 
 
   //XboxController setup
@@ -37,10 +46,15 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    operatorLBumper.whenHeld(new RunIntake(intake));
+    inputHandler();
     // Configure the button bindings
     configureButtonBindings();
   }
 
+  public void inputHandler() {
+    
+  }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
