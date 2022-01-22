@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -44,6 +45,12 @@ public class Shooter extends SubsystemBase {
     shooterLeft.configPeakOutputForward(1, Constants.kTimeoutMs);
     shooterLeft.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
+    shooterLeft.config_kF(Constants.SHOOTER_SLOT_INDEX_ID, Constants.kGains_Shooter_Velocity.kF, Constants.kTimeoutMs);
+    shooterLeft.config_kP(Constants.SHOOTER_SLOT_INDEX_ID, Constants.kGains_Shooter_Velocity.kP, Constants.kTimeoutMs);
+    shooterLeft.config_kI(Constants.SHOOTER_SLOT_INDEX_ID, Constants.kGains_Shooter_Velocity.kI, Constants.kTimeoutMs);
+    shooterLeft.config_kD(Constants.SHOOTER_SLOT_INDEX_ID, Constants.kGains_Shooter_Velocity.kD, Constants.kTimeoutMs);
+    
+
 
   }
 
@@ -51,6 +58,15 @@ public class Shooter extends SubsystemBase {
   public void startShooter() {
 
     shooterLeft.set(ControlMode.PercentOutput, Constants.SHOOTER_SPEED);
+
+  }
+
+  public void startShooterVelocity() {
+
+    double targetRPM = SmartDashboard.getNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM);
+    double targetEncoderUnitsPer100Ms = targetRPM * Constants.RPM_TO_ENCODER_UNITS_PER_100_MS;
+
+    shooterLeft.set(ControlMode.Velocity, targetEncoderUnitsPer100Ms);
 
   }
 

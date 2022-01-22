@@ -45,9 +45,13 @@ public final class Constants {
     //Shooter
     public static final int kTimeoutMs = 30;
     public static final double SHOOTER_SPEED = 1;
-    public static final double ENCODER_UNITS_TO_DEGREES = 4096.0/360.0 * 10;
+    public static final double ENCODER_UNITS_TO_DEGREES = 2048.0/360.0 * 10;
+    public static final int SHOOTER_SLOT_INDEX_ID = 0;
+    public static final int SHOOTER_TARGET_RPM = 1000;
+    public static final double RPM_TO_ENCODER_UNITS_PER_100_MS = .1 * 2048.0 / 60.0;
 
     //Speeds
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
+    public static final Gains kGains_Shooter_Velocity = new Gains(0, 0, 0, 1023.0/53000.0, 300, 1.0);
 }
