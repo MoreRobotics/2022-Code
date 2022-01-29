@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -29,15 +30,18 @@ public class Shooter extends SubsystemBase {
     shooterLeft.configFactoryDefault();
     shooterRight.configFactoryDefault();
 
+    shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 30);
+
     //set motors to coast mode
     shooterLeft.setNeutralMode(NeutralMode.Coast);
     shooterRight.setNeutralMode(NeutralMode.Coast);
 
-    //set the right motor to do the opposite of the left motor
-    shooterRight.setInverted(true);
-
     //set the right shooter motor to move with the left shooter motor
     shooterRight.follow(shooterLeft);
+
+    //set the right motor to do the opposite of the left motor
+    shooterLeft.setInverted(true);
+    shooterRight.setInverted(true);
 
     //sets maximun and minimum power to send to the shooter motors
     shooterLeft.configNominalOutputForward(0, Constants.kTimeoutMs);
@@ -93,5 +97,6 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Shooter RPM", shooterLeft.getSelectedSensorVelocity() / Constants.RPM_TO_ENCODER_UNITS_PER_100_MS);
   }
 }

@@ -24,17 +24,17 @@ public class Climber extends SubsystemBase {
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
 
     //resets encoders
-    climberLeft.configFactoryDefault();
-    climberRight.configFactoryDefault();
+    // climberLeft.configFactoryDefault();
+    // climberRight.configFactoryDefault();
 
     //sets the right climber motor to follow the left one
     climberRight.follow(climberRight);
 
     //sets maximum and minimum power limits for the motors
-    climberLeft.configNominalOutputForward(0, Constants.kTimeoutMs);
-    climberLeft.configNominalOutputReverse(0, Constants.kTimeoutMs);
-    climberLeft.configPeakOutputForward(1, Constants.kTimeoutMs);
-    climberLeft.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+    // climberLeft.configNominalOutputForward(0, Constants.kTimeoutMs);
+    // climberLeft.configNominalOutputReverse(0, Constants.kTimeoutMs);
+    // climberLeft.configPeakOutputForward(1, Constants.kTimeoutMs);
+    // climberLeft.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
   }
 

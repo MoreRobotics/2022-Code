@@ -7,7 +7,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,9 +22,22 @@ public class DriveTrain extends SubsystemBase {
   MotorControllerGroup rightDrive, leftDrive;
   DifferentialDrive drive;
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+  PhotonCamera camera;
+
+  final double LINEAR_P = 0.1;
+  final double LINEAR_D = 0.0;
+  PIDController forwardController = new PIDController(LINEAR_P, 0, LINEAR_D);
+
+  final double ANGULAR_P = 0.1;
+  final double ANGULAR_D = 0.0;
+  PIDController turnController = new PIDController(ANGULAR_P, 0, ANGULAR_D);
+
+  double forwardSpeed;
+  double rotationSpeed;
 
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
+
     falconFrontRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_FRONT_RIGHT_ID);
     falconRearRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_REAR_RIGHT_ID);
     rightDrive = new MotorControllerGroup(falconFrontRight, falconRearRight);
@@ -38,6 +54,11 @@ public class DriveTrain extends SubsystemBase {
  
     falconFrontLeft.setSensorPhase(true);
     falconFrontRight.setSensorPhase(true);
+
+    camera = new PhotonCamera("photonvision");
+
+
+
   }
 
   @Override
@@ -52,6 +73,22 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drive(){
-    drive.curvatureDrive(driverController.getLeftY(), driverController.getRightX(), false);
+    drive.arcadeDrive(driverController.getRightX(), driverController.getLeftY());
+  }
+
+  public void autoDrive() {
+    var result = camera.getLatestResult();
+
+    if (result.hasTargets()) {
+      // Calculate angular turn power
+      // -1.0 required to ensure positive PID controller effort _increases_ yaw
+      rotationSpeed = -turnController.calculate(result.getBestTarget().getYaw(), 0);
+    } else {
+      // If we have no targets, stay still.
+      rotationSpeed = 0;
+    }
+
+    drive.arcadeDrive(forwardSpeed, rotationSpeed);
+    
   }
 }
