@@ -8,9 +8,11 @@ import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -78,17 +80,56 @@ public class DriveTrain extends SubsystemBase {
 
   public void autoDrive() {
     var result = camera.getLatestResult();
-
+    System.out.println(result.hasTargets());
     if (result.hasTargets()) {
+
+      double range = PhotonUtils.calculateDistanceToTargetMeters(Constants.CAMERA_HEIGHT_METERS, Constants.TARGET_HEIGHT_METERS, Constants.CAMERA_PITCH_RADIANS, Units.degreesToRadians(result.getBestTarget().getPitch()));
+
+      
+
+      switch ((int)range) {
+        case Constants.RANGE1 - 2:
+        case Constants.RANGE1 - 1:
+        case Constants.RANGE1:
+        case Constants.RANGE1 + 1:
+        case Constants.RANGE1 + 2:
+          break;
+        case Constants.RANGE2 - 2:
+        case Constants.RANGE2 - 1:
+        case Constants.RANGE2:
+        case Constants.RANGE2 + 1:
+        case Constants.RANGE2 + 2:
+          break;
+        case Constants.RANGE3 - 2:
+        case Constants.RANGE3 - 1:
+        case Constants.RANGE3:
+        case Constants.RANGE3 + 1:
+        case Constants.RANGE3 + 2:
+          break;
+        case Constants.RANGE4 - 2:
+        case Constants.RANGE4 - 1:
+        case Constants.RANGE4:
+        case Constants.RANGE4 + 1:
+        case Constants.RANGE4 + 2:
+          break;
+        default:
+          break;
+
+      }
+
+      forwardSpeed = forwardController.calculate(range, Constants.GOAL_RANGE_METERS);
+
       // Calculate angular turn power
       // -1.0 required to ensure positive PID controller effort _increases_ yaw
-      rotationSpeed = -turnController.calculate(result.getBestTarget().getYaw(), 0);
+      //rotationSpeed = turnController.calculate(result.getBestTarget().getYaw(), 0);
+      rotationSpeed = 0;
     } else {
       // If we have no targets, stay still.
       rotationSpeed = 0;
+      forwardSpeed = 0;
     }
 
-    drive.arcadeDrive(forwardSpeed, rotationSpeed);
+    drive.arcadeDrive(forwardSpeed*0.5, rotationSpeed*0.5);
     
   }
 }

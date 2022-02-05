@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Hood;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -19,10 +20,12 @@ public class Shooter extends SubsystemBase {
 
   WPI_TalonFX shooterLeft, shooterRight;
   XboxController operatorController;
+  Hood hood;
 
   /** Creates a new Shooter. */
   public Shooter() {
 
+    hood = new Hood(Constants.ACTUATOR1_PORT, Constants.ACTUATOR_LENGTH, Constants.ACTUATOR_SPEED);
     shooterLeft = new WPI_TalonFX(Constants.SHOOTER_LEFT_ID);
     shooterRight = new WPI_TalonFX(Constants.SHOOTER_RIGHT_ID);
 
@@ -97,6 +100,9 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    hood.updateCurPos();
     SmartDashboard.putNumber("Shooter RPM", shooterLeft.getSelectedSensorVelocity() / Constants.RPM_TO_ENCODER_UNITS_PER_100_MS);
+    SmartDashboard.putNumber("Hood Angle", hood.getPosition());
+
   }
 }
