@@ -11,6 +11,7 @@ import frc.robot.Hood;
 
 public class MoveHood extends CommandBase {
 
+
   private final Hood hood;
   /** Creates a new moveHood. */
   public MoveHood(Hood hood) {
@@ -21,6 +22,7 @@ public class MoveHood extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
 
     hood.setPosition(SmartDashboard.getNumber("Hood angle", 0));
 

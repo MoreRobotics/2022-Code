@@ -121,8 +121,7 @@ public class DriveTrain extends SubsystemBase {
 
       // Calculate angular turn power
       // -1.0 required to ensure positive PID controller effort _increases_ yaw
-      //rotationSpeed = turnController.calculate(result.getBestTarget().getYaw(), 0);
-      rotationSpeed = 0;
+      rotationSpeed = turnController.calculate(result.getBestTarget().getYaw(), 0);
     } else {
       // If we have no targets, stay still.
       rotationSpeed = 0;

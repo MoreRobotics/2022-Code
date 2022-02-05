@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.POVButton;
+import frc.robot.commands.MoveHood;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.RunTransporter;
@@ -33,6 +35,7 @@ public class RobotContainer {
   Climber climber = new Climber();
   Turret turret = new Turret();
   Transporter transporter = new Transporter();
+  Hood hood = new Hood(Constants.ACTUATOR1_PORT, Constants.ACTUATOR_LENGTH, Constants.ACTUATOR_SPEED);
 
 
   //XboxController setup
@@ -48,6 +51,8 @@ public class RobotContainer {
   JoystickButton operatorLBumper = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
   JoystickButton operatorRBumper = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
   JoystickButton operatorBackButton = new JoystickButton(operatorController, XboxController.Button.kBack.value);
+  POVButton operatorDPadUp = new POVButton(operatorController, 0);
+  POVButton operatorDPadDown = new POVButton(operatorController, 180);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -66,8 +71,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     operatorLBumper.whenHeld(new RunIntake(intake));
     operatorRBumper.whenHeld(new RunTransporter(transporter));
+    operatorYButton.whenPressed(new MoveHood(hood));
     shooterHandler();
   }
+
   public void shooterHandler() {
     operatorAButton.whenHeld(new RunShooter(shooter));
     
