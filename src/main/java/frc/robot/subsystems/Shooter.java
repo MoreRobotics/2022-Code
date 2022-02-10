@@ -20,12 +20,13 @@ public class Shooter extends SubsystemBase {
 
   WPI_TalonFX shooterLeft, shooterRight;
   XboxController operatorController;
-  Hood hood;
+  public Hood hood1, hood2;
 
   /** Creates a new Shooter. */
   public Shooter() {
 
-    hood = new Hood(Constants.ACTUATOR1_PORT, Constants.ACTUATOR_LENGTH, Constants.ACTUATOR_SPEED);
+    hood1 = new Hood(Constants.ACTUATOR1_PORT, Constants.ACTUATOR_LENGTH, Constants.ACTUATOR_SPEED);
+    hood2 = new Hood(Constants.ACTUATOR2_PORT, Constants.ACTUATOR_LENGTH, Constants.ACTUATOR_SPEED);
     shooterLeft = new WPI_TalonFX(Constants.SHOOTER_LEFT_ID);
     shooterRight = new WPI_TalonFX(Constants.SHOOTER_RIGHT_ID);
 
@@ -100,9 +101,9 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    hood.updateCurPos();
+    hood1.updateCurPos();
     SmartDashboard.putNumber("Shooter RPM", shooterLeft.getSelectedSensorVelocity() / Constants.RPM_TO_ENCODER_UNITS_PER_100_MS);
-    SmartDashboard.putNumber("Hood Angle", hood.getPosition());
+    SmartDashboard.putNumber("Hood Angle", hood1.getPosition());
 
   }
 }

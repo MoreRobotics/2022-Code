@@ -29,6 +29,10 @@ public class Transporter extends SubsystemBase {
     transporterMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  public void reverseTransporter() {
+    transporterMotor.set(ControlMode.PercentOutput, -Constants.TRANSPORTER_SPEED);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

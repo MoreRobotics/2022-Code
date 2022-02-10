@@ -35,7 +35,7 @@ public class RobotContainer {
   Climber climber = new Climber();
   Turret turret = new Turret();
   Transporter transporter = new Transporter();
-  Hood hood = new Hood(Constants.ACTUATOR1_PORT, Constants.ACTUATOR_LENGTH, Constants.ACTUATOR_SPEED);
+
 
 
   //XboxController setup
@@ -71,7 +71,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     operatorLBumper.whenHeld(new RunIntake(intake));
     operatorRBumper.whenHeld(new RunTransporter(transporter));
-    operatorYButton.whenPressed(new MoveHood(hood));
+    operatorYButton.whenPressed(new MoveHood(shooter));
     shooterHandler();
   }
 

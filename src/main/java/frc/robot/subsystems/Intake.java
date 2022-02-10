@@ -29,6 +29,10 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(ControlMode.PercentOutput, 0);
   }
   
+  public void reverseIntake() {
+    intakeMotor.set(ControlMode.PercentOutput, -Constants.INTAKE_SPEED);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
