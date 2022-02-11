@@ -54,10 +54,7 @@ public class Hood extends Servo {
 
   //Detects when the actuator has moved to the desired position
   public boolean isFinished(){
-
     lastTime = 0;
     return curPos == setPos;
-    
-
   }
 }
