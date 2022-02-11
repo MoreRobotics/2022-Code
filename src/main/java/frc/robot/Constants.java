@@ -30,6 +30,8 @@ public final class Constants {
     //climber motors
     public static final int CLIMBER_LEFT_MOTOR_ID = -1;
     public static final int CLIMBER_RIGHT_MOTOR_ID = -1;
+    public static final int CLIMBER_MID_MOTOR_ID = -1;
+    public static final int CLIMBER_SLOT_INDEX_ID = 0;
 
     //transporter motor
     public static final int TRANSPORTER_MOTOR_ID = -1;
@@ -73,6 +75,7 @@ public final class Constants {
     //Speeds
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
-    public static final Gains kGains_Shooter_Velocity = new Gains(0, 0, 0, 1023.0/53000.0, 300, 1.0);
+    public static final Gains kGains_Shooter_Velocity = new Gains(0.0, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
+    public static final Gains kGains_Climber_Rotation_Speed = new Gains(0.1, 0.0, 0.0, 0.0, 300, 1.0);
 
 }
