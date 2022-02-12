@@ -27,6 +27,13 @@ public final class Constants {
     //intake motor
     public static final int INTAKE_MOTOR_ID = -1;
 
+
+    //intake solenoids
+    public static final int PRESSURE_FORWARD_CHANNEL = -1;
+    public static final int PRESSURE_REVERSE_CHANNEL = -1;
+    public static final int RAISE_FORWARD_CHANNEL = -1;
+    public static final int RAISE_REVERSE_CHANNEL = -1;
+
     //climber motors
     public static final int CLIMBER_LEFT_MOTOR_ID = -1;
     public static final int CLIMBER_RIGHT_MOTOR_ID = -1;

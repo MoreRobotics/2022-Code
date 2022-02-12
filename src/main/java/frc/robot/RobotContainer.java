@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunIntakeCG;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.RunTransporter;
 import frc.robot.subsystems.Climber;
@@ -69,7 +70,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    operatorLBumper.whenHeld(new RunIntake(intake));
+    operatorLBumper.whenHeld(new RunIntakeCG(intake));
     operatorRBumper.whenHeld(new RunTransporter(transporter));
     operatorYButton.whenPressed(new MoveHood(shooter));
     shooterHandler();

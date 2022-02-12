@@ -13,6 +13,7 @@ public class RunTransporter extends CommandBase {
   public RunTransporter(Transporter transporter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.transporter = transporter;
+    addRequirements(transporter);
   }
 
   // Called when the command is initially scheduled.

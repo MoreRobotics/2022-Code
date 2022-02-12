@@ -4,18 +4,26 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.Intake;
 
-public class AutonomousCommand extends CommandBase {
-  /** Creates a new AutonomousCommand. */
-  
-  public AutonomousCommand() {
+public class LowerIntake extends CommandBase {
+  /** Creates a new LowerIntake. */
+  private final Intake intake;
+  public LowerIntake(Intake intake) {
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    intake.lowerIntake();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -28,6 +36,6 @@ public class AutonomousCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
