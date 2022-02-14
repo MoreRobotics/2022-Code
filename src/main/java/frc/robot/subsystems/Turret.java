@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.photonvision.PhotonCamera;
@@ -17,6 +18,7 @@ public class Turret extends SubsystemBase {
 
   TalonSRX turretMotor;
   XboxController operatorController;
+  TalonSRXFeedbackDevice encoder;
 
   //camera shit goes here
   PhotonCamera camera = new PhotonCamera("photonvision");
@@ -26,6 +28,8 @@ public class Turret extends SubsystemBase {
 
     turretMotor = new TalonSRX(Constants.TURRET_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
+    turretMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, Constants.kTimeoutMs);
+
     
     
   }
