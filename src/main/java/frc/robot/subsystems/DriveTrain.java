@@ -57,9 +57,7 @@ public class DriveTrain extends SubsystemBase {
     falconFrontLeft.setSensorPhase(true);
     falconFrontRight.setSensorPhase(true);
 
-    camera = new PhotonCamera("photonvision");
-
-
+    camera = new PhotonCamera("gloworm");
 
   }
 
@@ -85,32 +83,22 @@ public class DriveTrain extends SubsystemBase {
 
       double range = PhotonUtils.calculateDistanceToTargetMeters(Constants.CAMERA_HEIGHT_METERS, Constants.TARGET_HEIGHT_METERS, Constants.CAMERA_PITCH_RADIANS, Units.degreesToRadians(result.getBestTarget().getPitch()));
 
-      
-
       switch ((int)range) {
-        case Constants.RANGE1 - 2:
-        case Constants.RANGE1 - 1:
-        case Constants.RANGE1:
-        case Constants.RANGE1 + 1:
-        case Constants.RANGE1 + 2:
+        case 1:
           break;
-        case Constants.RANGE2 - 2:
-        case Constants.RANGE2 - 1:
-        case Constants.RANGE2:
-        case Constants.RANGE2 + 1:
-        case Constants.RANGE2 + 2:
+        case 2:
           break;
-        case Constants.RANGE3 - 2:
-        case Constants.RANGE3 - 1:
-        case Constants.RANGE3:
-        case Constants.RANGE3 + 1:
-        case Constants.RANGE3 + 2:
+        case 3:
           break;
-        case Constants.RANGE4 - 2:
-        case Constants.RANGE4 - 1:
-        case Constants.RANGE4:
-        case Constants.RANGE4 + 1:
-        case Constants.RANGE4 + 2:
+        case 4:
+          break;
+        case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
           break;
         default:
           break;
@@ -128,7 +116,7 @@ public class DriveTrain extends SubsystemBase {
       forwardSpeed = 0;
     }
 
-    drive.arcadeDrive(forwardSpeed*0.5, rotationSpeed*0.5);
+    drive.arcadeDrive(forwardSpeed*0.5, 0);
     
   }
 }
