@@ -55,7 +55,7 @@ public class Turret extends SubsystemBase {
       targetYaw = result.getBestTarget().getYaw();
       unitsDisplacement = targetYaw * Constants.TURRET_DEGREES_TO_ENCODER;
 
-      targetPosition = (turretMotor.getSelectedSensorPosition() + Constants.TURRET_OFFSET + unitsDisplacement) % 4096;
+      targetPosition = turretMotor.getSelectedSensorPosition() + Constants.TURRET_OFFSET + unitsDisplacement;
 
       if(targetPosition > 4095) {
         targetPosition = 4095;
@@ -68,11 +68,10 @@ public class Turret extends SubsystemBase {
     } else {
       targetYaw = 0;
       unitsDisplacement = 0;
-      targetPosition = 0;
+      targetPosition = 2048;
     }
     //TODO: test
-    turretMotor.set(ControlMode.Position, targetPosition);
-
+    turretMotor.set(ControlMode.Position, (targetPosition - Constants.TURRET_OFFSET) % 4096);
   }
 
   @Override
