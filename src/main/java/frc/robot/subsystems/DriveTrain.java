@@ -12,9 +12,15 @@ import org.photonvision.PhotonUtils;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.TankDrive;
@@ -33,6 +39,12 @@ public class DriveTrain extends SubsystemBase {
   final double ANGULAR_P = 0.1;
   final double ANGULAR_D = 0.0;
   PIDController turnController = new PIDController(ANGULAR_P, 0, ANGULAR_D);
+
+  PIDController leftPIDController, rightPIDController;
+
+  RamseteController ramseteController;
+
+  SimpleMotorFeedforward simpleMotorFeedForward;
 
   double forwardSpeed;
   double rotationSpeed;
@@ -59,7 +71,11 @@ public class DriveTrain extends SubsystemBase {
 
     camera = new PhotonCamera("photonvision");
 
+    ramseteController = new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta);
+    simpleMotorFeedForward = new SimpleMotorFeedforward(Constants.ksVolts, Constants.kvVoltSecondsPerMeter, Constants.kaVoltSecondsSquaredPerMeter);
 
+    leftPIDController = new PIDController(Constants.kPDriveVel, 0, 0);
+    rightPIDController = new PIDController(Constants.kPDriveVel, 0, 0);
 
   }
 
@@ -130,5 +146,34 @@ public class DriveTrain extends SubsystemBase {
 
     drive.arcadeDrive(forwardSpeed*0.5, rotationSpeed*0.5);
     
+  }
+
+  public RamseteCommand getRamseteCommand(Trajectory trajectory) {
+    return new RamseteCommand(
+      trajectory, 
+      this::getPose, 
+      ramseteController, 
+      simpleMotorFeedForward,
+      Constants.kDriveKinematics,
+      this::getWheelSpeeds,
+      leftPIDController,
+      rightPIDController,
+      this::tankDriveVolts,
+      this);
+  }
+
+  public void tankDriveVolts(final double leftVolts, final double rightVolts) {
+    leftDrive.setVoltage(leftVolts);
+    rightDrive.setVoltage(-rightVolts);
+    drive.feed();
+  }
+
+  public Pose2d getPose() {
+    return new Pose2d();
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(falconRearLeft.getSelectedSensorVelocity() / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_DIAMETER * Math.PI,
+    falconFrontRight.getSelectedSensorVelocity() / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_DIAMETER * Math.PI);
   }
 }

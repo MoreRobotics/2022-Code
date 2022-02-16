@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.commands.MoveHood;
+import frc.robot.commands.RunAuto;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.RunTransporter;
@@ -35,6 +36,7 @@ public class RobotContainer {
   Climber climber = new Climber();
   Turret turret = new Turret();
   Transporter transporter = new Transporter();
+  TrajectoryManager trajectoryManager = new TrajectoryManager();
 
 
 
@@ -88,8 +90,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  /*public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }*/
+  public Command getAutonomousCommand() {
+    // An test path will run in autonomous
+    return new RunAuto(driveTrain, intake, trajectoryManager.testPath, trajectoryManager);
+  }
 }
