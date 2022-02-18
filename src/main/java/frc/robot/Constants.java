@@ -31,8 +31,9 @@ public final class Constants {
     public static final int CLIMBER_LEFT_MOTOR_ID = -1;
     public static final int CLIMBER_RIGHT_MOTOR_ID = -1;
 
-    //transporter motor
+    //transporter motors
     public static final int TRANSPORTER_MOTOR_ID = -1;
+    public static final int TOWER_MOTOR_ID = -1;
 
     //controllers
     public static final int DRIVER_CONTROLLER_PORT = 0;

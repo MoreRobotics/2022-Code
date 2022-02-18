@@ -4,43 +4,38 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Hood;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Transporter;
 
-
-public class MoveHood extends CommandBase {
-
-
-  private final Shooter shooter;
-  /** Creates a new moveHood. */
-  public MoveHood(Shooter shooter) {
-    this.shooter = shooter;
+public class RunTower extends CommandBase {
+  private final Transporter transporter;
+  /** Creates a new RunTower. */
+  public RunTower(Transporter transporter) {
+    this.transporter = transporter;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter);
+    addRequirements(transporter);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    transporter.startTowerTransporter();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    shooter.hood1.setPosition(SmartDashboard.getNumber("Hood Target Angle", 0));
-    shooter.hood2.setPosition(SmartDashboard.getNumber("Hood Target Angle", 0));
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    transporter.stopTowerTransporter();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

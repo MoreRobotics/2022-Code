@@ -13,12 +13,26 @@ import frc.robot.Constants;
 
 public class Transporter extends SubsystemBase {
   /** Creates a new Transporter. */
-  TalonSRX transporterMotor;
+  TalonSRX transporterMotor, towerMotor;
+  
   XboxController operatorController;
 
   public Transporter() {
     transporterMotor = new TalonSRX(Constants.TRANSPORTER_MOTOR_ID);
+    towerMotor = new TalonSRX(Constants.TOWER_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
+  }
+
+  public void startTowerTransporter() {
+    towerMotor.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
+  }
+
+  public void stopTowerTransporter() {
+    towerMotor.set(ControlMode.PercentOutput, 0);
+  }
+
+  public void reverseTowerTransporter() {
+    towerMotor.set(ControlMode.PercentOutput, -Constants.TRANSPORTER_SPEED);
   }
 
   public void startTransporter() {
