@@ -69,10 +69,14 @@ public final class Constants {
     public static final int ACTUATOR_SPEED = 32;
     public static final int ACTUATOR_LENGTH = 118;
 
-
     //Speeds
+    //"Speed. I am speed." - Lightning Mcqueen
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
     public static final Gains kGains_Shooter_Velocity = new Gains(0, 0, 0, 1023.0/53000.0, 300, 1.0);
+
+    //Color Threshold
+    public static int RED_THRESHOLD = 180;
+    public static int BLUE_THRESHOLD = 150;
 
 }

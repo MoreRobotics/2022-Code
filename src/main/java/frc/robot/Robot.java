@@ -24,8 +24,9 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private final I2C.Port i2cPort = I2C.Port.kOnboard;
+  public int ballColor;
 
+  private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private ColorSensorV3 m_colorSensor;
 
   /**
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
 
     m_colorSensor = new ColorSensorV3(i2cPort);
 
+    SmartDashboard.putNumber("Hood Target Angle", 0);
     SmartDashboard.putNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM);
   }
 
@@ -60,7 +62,25 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Blue", m_colorSensor.getBlue());
     SmartDashboard.putNumber("Red", m_colorSensor.getRed());
+    
 
+    //descides if ball is red or blue
+    if (m_colorSensor.getBlue() > Constants.RED_THRESHOLD && m_colorSensor.getBlue() < Constants.BLUE_THRESHOLD) {
+      //red
+      ballColor = 1;
+    }
+    else if (m_colorSensor.getBlue() > Constants.BLUE_THRESHOLD && m_colorSensor.getRed() < Constants.RED_THRESHOLD) {
+      //blue
+      ballColor = 2;
+    }
+    else {
+      //none
+      ballColor = 0;
+    }
+
+    System.out.println(ballColor);
+
+    SmartDashboard.putNumber("Ball Color Status", ballColor);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
