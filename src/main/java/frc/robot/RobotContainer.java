@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.MoveHood;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.RunTower;
 import frc.robot.commands.RunTransporter;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
@@ -18,6 +19,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Transporter;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -76,7 +78,7 @@ public class RobotContainer {
   }
 
   public void shooterHandler() {
-    operatorAButton.whenHeld(new RunShooter(shooter));
+    operatorAButton.whenHeld(new ParallelCommandGroup(new RunShooter(shooter), new RunTower(transporter), new RunTransporter(transporter)));
     
   }
 
