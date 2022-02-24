@@ -29,8 +29,13 @@ public class Hood extends Servo {
 
   // moves actuator to desired position
   public void setPosition(double setpoint){
+    System.out.println("setpoint = " + setpoint);
+    
     setPos = MathUtil.clamp(setpoint, 0, m_length);
-    setSpeed((setPos/m_length *2)-1);
+    
+    System.out.println("setPos = " + setPos);
+
+    setSpeed( (setPos/m_length *2)-1);
   }
 
   //Updates the current position of the actuator

@@ -98,6 +98,12 @@ public class Shooter extends SubsystemBase {
     shooterLeft.setSelectedSensorPosition(0);
   }
 
+  //moves hood actuators
+  public void setHoodPos(double setpoint) {
+    hood1.setPosition(setpoint);
+    hood2.setPosition(setpoint);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
