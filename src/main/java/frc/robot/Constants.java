@@ -70,8 +70,8 @@ public final class Constants {
     public static final int RANGE4 = 20;
 
     //Shooter hood
-    public static final int ACTUATOR1_PORT = 1;
-    public static final int ACTUATOR2_PORT = 2;
+    public static final int ACTUATOR1_PORT = 8;
+    public static final int ACTUATOR2_PORT = 9;
     
     public static final int ACTUATOR_SPEED = 32;
     public static final int ACTUATOR_LENGTH = 118;
