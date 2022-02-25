@@ -7,16 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.MoveHood;
-import frc.robot.commands.RunIntake;
-import frc.robot.commands.RunShooter;
-import frc.robot.commands.RunTransporter;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Transporter;
-import frc.robot.subsystems.Turret;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -52,7 +44,11 @@ public class RobotContainer {
   JoystickButton operatorRBumper = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
   JoystickButton operatorBackButton = new JoystickButton(operatorController, XboxController.Button.kBack.value);
   POVButton operatorDPadUp = new POVButton(operatorController, 0);
+  POVButton operatorDPadUpLeft = new POVButton(operatorController, 315);
+  POVButton operatorDPadUpRight = new POVButton(operatorController, 45);
   POVButton operatorDPadDown = new POVButton(operatorController, 180);
+  POVButton operatorDPadDownLeft = new POVButton(operatorController, 225);
+  POVButton operatorDPadDownRight = new POVButton(operatorController, 135);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -72,6 +68,12 @@ public class RobotContainer {
     operatorLBumper.whenHeld(new RunIntake(intake));
     operatorRBumper.whenHeld(new RunTransporter(transporter));
     operatorYButton.whenPressed(new MoveHood(shooter));
+    operatorDPadUp.whenHeld(new HoodUp(shooter));
+    operatorDPadUpLeft.whenHeld(new HoodUp(shooter));
+    operatorDPadUpRight.whenHeld(new HoodUp(shooter));
+    operatorDPadDown.whenHeld(new HoodDown(shooter));
+    operatorDPadDownLeft.whenHeld(new HoodDown(shooter));
+    operatorDPadDownRight.whenHeld(new HoodDown(shooter));
     shooterHandler();
   }
 

@@ -44,7 +44,7 @@ public class Shooter extends SubsystemBase {
     shooterRight.follow(shooterLeft);
 
     //set the right motor to do the opposite of the left motor
-    shooterLeft.setInverted(true);
+    shooterLeft.setInverted(false);
     shooterRight.setInverted(true);
 
     //sets maximun and minimum power to send to the shooter motors

@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     m_colorSensor = new ColorSensorV3(i2cPort);
 
     SmartDashboard.putNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM);
+    SmartDashboard.putNumber("Hood Target Angle", 0);
   }
 
   /**
