@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,6 +30,8 @@ public class Robot extends TimedRobot {
 
   private ColorSensorV3 m_colorSensor;
 
+  private DigitalInput breakBeam;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,6 +43,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     m_colorSensor = new ColorSensorV3(i2cPort);
+
+    breakBeam = new DigitalInput(Constants.BREAK_BEAM_PORT);
 
     SmartDashboard.putNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM);
     SmartDashboard.putNumber("Robot State", 1);
@@ -101,7 +106,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if ((SmartDashboard.getNumber("Blue", 0) > 150 || SmartDashboard.getNumber("Red", 0) > 180) && SmartDashboard.getNumber("Robot State", 0) < 2) {
+
+    if (breakBeam.get() && SmartDashboard.getNumber("Robot State", 0) < 2) {
       if (SmartDashboard.getNumber("Robot State", 0) == 0) {
         SmartDashboard.putNumber("Robot State", 4);
       } else if (SmartDashboard.getNumber("Robot State", 0) == 1) {

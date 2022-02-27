@@ -63,10 +63,16 @@ public final class Constants {
     public static final int RANGE3 = 15;
     public static final int RANGE4 = 20;
 
-    //Shooter hood
+
+    //Rio ports
+    
+    //PWM
     public static final int ACTUATOR1_PORT = 1;
     public static final int ACTUATOR2_PORT = 2;
+    //DIO
+    public static final int BREAK_BEAM_PORT = 9;
     
+    //Shooter hood
     public static final int ACTUATOR_SPEED = 32;
     public static final int ACTUATOR_LENGTH = 118;
 
