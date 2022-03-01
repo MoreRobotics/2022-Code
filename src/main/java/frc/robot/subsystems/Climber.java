@@ -5,11 +5,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants;
@@ -30,8 +31,18 @@ public class Climber extends SubsystemBase {
     climberRight.configFactoryDefault();
     climberMid.configFactoryDefault();
 
-    //sets the right climber motor to follow the left one
+    //set brake mode
+    climberLeft.setNeutralMode(NeutralMode.Brake);
+    climberRight.setNeutralMode(NeutralMode.Brake);
+    climberMid.setNeutralMode(NeutralMode.Brake);
+
+    //encoders
+    climberLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    climberMid.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+    //sets the right climber motor to follow the left one, inverted
     climberRight.follow(climberLeft);
+    climberRight.setInverted(true);
 
     //sets maximum and minimum power limits for the motors
     climberLeft.configNominalOutputReverse(0, Constants.kTimeoutMs);
@@ -44,16 +55,27 @@ public class Climber extends SubsystemBase {
     climberMid.configPeakOutputForward(1, Constants.kTimeoutMs);
     climberMid.configNominalOutputForward(0, Constants.kTimeoutMs);
 
-    // climberLeft.config_kF(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kF, Constants.kTimeoutMs);
-    // climberLeft.config_kP(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kP, Constants.kTimeoutMs);
-    // climberLeft.config_kI(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kI, Constants.kTimeoutMs);
-    // climberLeft.config_kD(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kD, Constants.kTimeoutMs);
+    climberLeft.config_kF(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kF, Constants.kTimeoutMs);
+    climberLeft.config_kP(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kP, Constants.kTimeoutMs);
+    climberLeft.config_kI(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kI, Constants.kTimeoutMs);
+    climberLeft.config_kD(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kD, Constants.kTimeoutMs);
     
+    climberMid.config_kF(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kF, Constants.kTimeoutMs);
+    climberMid.config_kP(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kP, Constants.kTimeoutMs);
+    climberMid.config_kI(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kI, Constants.kTimeoutMs);
+    climberMid.config_kD(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kD, Constants.kTimeoutMs);
+  }
+
+  public void getClimberPos() {
+
+    SmartDashboard.putNumber(("Middle Climber Position"), climberMid.getSelectedSensorPosition());
+    SmartDashboard.putNumber(("Left CLimber Position"), climberLeft.getSelectedSensorPosition());
+    ;
   }
 
   public void rotateBack() {
     //rotate the right and left climber motors to meet specified degrees
-    climberLeft.set(ControlMode.PercentOutput, -0.1);
+    climberLeft.set(ControlMode.Position, 0);
   }
 
   public void rotateForward() {
@@ -67,6 +89,14 @@ public class Climber extends SubsystemBase {
 
   public void retractMiddle() {
     climberMid.set(ControlMode.PercentOutput, -0.1);
+  }
+
+  public void stopPivot() {
+    climberLeft.set(ControlMode.PercentOutput, 0);
+  }
+
+  public void stopMiddle() {
+    climberMid.set(ControlMode.PercentOutput, 0);
   }
 
   @Override
