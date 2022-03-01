@@ -65,9 +65,9 @@ public final class Constants {
 
 
     //Turret
-    public static final int TURRET_MOTOR_ID = -1;
+    public static final int TURRET_MOTOR_ID = 8;
     public static final double TURRET_DEGREES_TO_ENCODER = 4096.0/360.0;
-    public static final int TURRET_OFFSET = 0;
+    public static final int TURRET_OFFSET = 1504;
 
     //Speeds
     public static final double INTAKE_SPEED = 1.0;
