@@ -12,6 +12,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.common.hardware.VisionLEDMode;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,7 +22,6 @@ public class Turret extends SubsystemBase {
 
   TalonSRX turretMotor;
   XboxController operatorController;
-  TalonSRXFeedbackDevice encoder;
 
   final double ANGULAR_P = 0.1;
   final double ANGULAR_D = 0.0;
@@ -48,6 +48,11 @@ public class Turret extends SubsystemBase {
     camera = new PhotonCamera("gloworm");
     camera.setLED(VisionLEDMode.kOff);
     
+  }
+
+  public double getTurretPos() {
+
+    return turretMotor.getSelectedSensorPosition();
   }
 
   public void turnTurret() {
