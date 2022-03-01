@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.photonvision.PhotonCamera;
@@ -34,6 +35,21 @@ public class Turret extends SubsystemBase {
     
     var result = camera.getLatestResult();
 
+  }
+
+  //temp method to manually turn turret
+  public void MoveTurretLeft() {
+    turretMotor.set(ControlMode.PercentOutput, 0.1);
+  }
+
+  //temp method to manually turn turret
+  public void MoveTurretRight() {
+    turretMotor.set(ControlMode.PercentOutput, -0.1);
+  }
+
+  //temp method to manually turn turret
+  public void StopTurret() {
+    turretMotor.set(ControlMode.PercentOutput, 0);
   }
 
   @Override

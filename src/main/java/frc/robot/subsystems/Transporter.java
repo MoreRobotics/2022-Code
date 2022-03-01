@@ -13,18 +13,19 @@ import frc.robot.Constants;
 
 public class Transporter extends SubsystemBase {
   /** Creates a new Transporter. */
-  TalonSRX transporterMotor, towerMotor;
+  TalonSRX transporterLeftMotor, transporterRightMotor, towerMotor;
   
   XboxController operatorController;
 
   public Transporter() {
     towerMotor = new TalonSRX(Constants.TOWER_MOTOR_ID);
-    transporterMotor = new TalonSRX(Constants.TRANSPORTER_LEFT_MOTOR);
+    transporterLeftMotor = new TalonSRX(Constants.TRANSPORTER_LEFT_MOTOR);
+    transporterRightMotor = new TalonSRX(Constants.TRANSPORTER_RIGHT_MOTOR);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
   }
 
   public void startTowerTransporter() {
-    towerMotor.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
+    towerMotor.set(ControlMode.PercentOutput, -Constants.TRANSPORTER_SPEED);
   }
 
   public void stopTowerTransporter() {
@@ -32,19 +33,22 @@ public class Transporter extends SubsystemBase {
   }
 
   public void reverseTowerTransporter() {
-    towerMotor.set(ControlMode.PercentOutput, -Constants.TRANSPORTER_SPEED);
+    towerMotor.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
   }
 
   public void startTransporter() {
-    transporterMotor.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
+    transporterLeftMotor.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
+    transporterRightMotor.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
   }
 
   public void stopTransporter() {
-    transporterMotor.set(ControlMode.PercentOutput, 0);
+    transporterLeftMotor.set(ControlMode.PercentOutput, 0);
+    transporterRightMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public void reverseTransporter() {
-    transporterMotor.set(ControlMode.PercentOutput, -Constants.TRANSPORTER_SPEED);
+    transporterLeftMotor.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
+    transporterRightMotor.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
   }
 
   @Override

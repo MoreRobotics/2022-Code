@@ -77,8 +77,8 @@ public final class Constants {
 
 
     //Speeds
-    public static final double INTAKE_SPEED = 1.0;
-    public static final double TRANSPORTER_SPEED = 1.0;
+    public static final double INTAKE_SPEED = -1.0;
+    public static final double TRANSPORTER_SPEED = -1.0;
     public static final Gains kGains_Shooter_Velocity = new Gains(0.6, 0, 0, 1023.0/53000.0, 300, 1.0);
 
 }

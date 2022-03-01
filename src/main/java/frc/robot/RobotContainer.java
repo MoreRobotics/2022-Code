@@ -42,6 +42,8 @@ public class RobotContainer {
   JoystickButton operatorYButton = new JoystickButton(operatorController, XboxController.Button.kY.value);
   JoystickButton operatorLBumper = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
   JoystickButton operatorRBumper = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
+  JoystickButton operatorLTrigger = new JoystickButton(operatorController, XboxController.Axis.kLeftTrigger.value);
+  JoystickButton operatorRTrigger = new JoystickButton(operatorController, XboxController.Axis.kRightTrigger.value);
   JoystickButton operatorBackButton = new JoystickButton(operatorController, XboxController.Button.kBack.value);
   POVButton operatorDPadUp = new POVButton(operatorController, 0);
   POVButton operatorDPadUpLeft = new POVButton(operatorController, 315);
@@ -67,6 +69,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     operatorLBumper.whenHeld(new RunIntake(intake));
     operatorRBumper.whenHeld(new RunTransporter(transporter));
+    operatorXButton.whenHeld(new RunTower(transporter));
+    // operatorLTrigger.whenActive(new MoveTurretLeft(turret));   // I was dumb here, don't look at these
+    // operatorRTrigger.whenActive(new MoveTurretRight(turret));
     operatorYButton.whenPressed(new MoveHood(shooter));
     operatorDPadUp.whenHeld(new HoodUp(shooter));
     operatorDPadUpLeft.whenHeld(new HoodUp(shooter));
