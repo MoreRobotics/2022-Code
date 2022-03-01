@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.common.hardware.VisionLEDMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
@@ -30,7 +31,7 @@ public class Turret extends SubsystemBase {
   double unitsDisplacement;
   double targetPosition;
 
-  PhotonCamera camera;
+  public PhotonCamera camera;
 
   /** Creates a new Turret. */
   public Turret() {
@@ -45,6 +46,7 @@ public class Turret extends SubsystemBase {
     turretMotor.config_kD(0, Constants.kGains_Turret_Velocity.kD, Constants.kTimeoutMs);
 
     camera = new PhotonCamera("gloworm");
+    camera.setLED(VisionLEDMode.kOff);
     
   }
 

@@ -11,6 +11,7 @@ import frc.robot.commands.MoveHood;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.RunTransporter;
+import frc.robot.commands.TurnTurret;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -72,6 +73,7 @@ public class RobotContainer {
     operatorLBumper.whenHeld(new RunIntake(intake));
     operatorRBumper.whenHeld(new RunTransporter(transporter));
     operatorYButton.whenPressed(new MoveHood(shooter));
+    operatorBButton.whenPressed(new TurnTurret(turret));
     shooterHandler();
   }
 
