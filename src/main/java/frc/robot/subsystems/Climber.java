@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -37,6 +38,13 @@ public class Climber extends SubsystemBase {
     // climberLeft.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
   }
+
+  public void stopLeft() {
+    //stop motor
+    climberLeft.set(ControlMode.PercentOutput, 0);
+  }
+
+
 
   @Override
   public void periodic() {

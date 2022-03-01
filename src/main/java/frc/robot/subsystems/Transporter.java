@@ -18,8 +18,8 @@ public class Transporter extends SubsystemBase {
   XboxController operatorController;
 
   public Transporter() {
-    transporterMotor = new TalonSRX(Constants.TRANSPORTER_MOTOR_ID);
     towerMotor = new TalonSRX(Constants.TOWER_MOTOR_ID);
+    transporterMotor = new TalonSRX(Constants.TRANSPORTER_LEFT_MOTOR);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
   }
 

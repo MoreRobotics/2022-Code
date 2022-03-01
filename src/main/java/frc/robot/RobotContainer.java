@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+
   DriveTrain driveTrain = new DriveTrain();
   DriveTrain autoDriveTrain = new DriveTrain();
   Shooter shooter = new Shooter();
