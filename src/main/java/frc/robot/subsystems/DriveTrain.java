@@ -77,7 +77,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drive(){
-    drive.arcadeDrive(driverController.getRightX(), driverController.getLeftY());
+    drive.arcadeDrive(-driverController.getRightX(), -driverController.getLeftY());
   }
 
   public void autoDrive() {
