@@ -23,22 +23,23 @@ public final class Constants {
     
 
     //shooter motors (change later)
-    public static final int SHOOTER_LEFT_ID = 7;
-    public static final int SHOOTER_RIGHT_ID = 6;
-    public static final int TURRET_MOTOR_ID = -1;
+    public static final int SHOOTER_LEFT_ID = 6;
+    public static final int SHOOTER_RIGHT_ID = 7;
+    public static final int TURRET_MOTOR_ID = 8;
 
     //intake motor
-    public static final int INTAKE_MOTOR_ID = -1;
+    public static final int INTAKE_MOTOR_ID = 12;
 
     //climber motors
-    public static final int CLIMBER_LEFT_MOTOR_ID = -1;
-    public static final int CLIMBER_RIGHT_MOTOR_ID = -1;
-    public static final int CLIMBER_MID_MOTOR_ID = -1;
+    public static final int CLIMBER_LEFT_MOTOR_ID = 13;
+    public static final int CLIMBER_RIGHT_MOTOR_ID = 15;
+    public static final int CLIMBER_MID_MOTOR_ID = 14;
     public static final int CLIMBER_SLOT_INDEX_ID = 0;
 
     //transporter motors
-    public static final int TRANSPORTER_MOTOR_ID = -1;
-    public static final int TOWER_MOTOR_ID = -1;
+    public static final int TRANSPORTER_MOTOR_LEFT = 9;
+    public static final int TRANSPORTER_MOTOR_RIGHT = 10;
+    public static final int TOWER_MOTOR_ID = 11;
 
     //controllers
     public static final int DRIVER_CONTROLLER_PORT = 0;
@@ -80,7 +81,7 @@ public final class Constants {
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
 
-    public static final Gains kGains_Shooter_Velocity = new Gains(0.6, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
+    public static final Gains kGains_Shooter_Velocity = new Gains(0.2, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
     public static final Gains kGains_Climber_Rotation_Speed = new Gains(0.1, 0.0, 0.0, 0.0, 300, 1.0);
 
 }
