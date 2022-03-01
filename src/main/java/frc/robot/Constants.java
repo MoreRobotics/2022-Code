@@ -17,11 +17,14 @@ public final class Constants {
     public static final int DRIVE_TRAIN_FRONT_LEFT_ID = 3;
     public static final int DRIVE_TRAIN_FRONT_RIGHT_ID = 4;
     public static final int DRIVE_TRAIN_REAR_LEFT_ID = 2;
-    public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 5;
+    public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 1;
+    public static final int DRIVE_TRAIN_MID_LEFT_ID = 5;
+    public static final int DRIVE_TRAIN_MID_RIGHT_ID = 0;
+    
 
     //shooter motors (change later)
-    public static final int SHOOTER_LEFT_ID = -1;
-    public static final int SHOOTER_RIGHT_ID = -1;
+    public static final int SHOOTER_LEFT_ID = 7;
+    public static final int SHOOTER_RIGHT_ID = 6;
     public static final int TURRET_MOTOR_ID = -1;
 
     //intake motor
@@ -33,8 +36,9 @@ public final class Constants {
     public static final int CLIMBER_MID_MOTOR_ID = -1;
     public static final int CLIMBER_SLOT_INDEX_ID = 0;
 
-    //transporter motor
+    //transporter motors
     public static final int TRANSPORTER_MOTOR_ID = -1;
+    public static final int TOWER_MOTOR_ID = -1;
 
     //controllers
     public static final int DRIVER_CONTROLLER_PORT = 0;
@@ -49,7 +53,7 @@ public final class Constants {
     public static final double SHOOTER_SPEED = 1;
     public static final double ENCODER_UNITS_TO_DEGREES = 2048.0/360.0 * 10;
     public static final int SHOOTER_SLOT_INDEX_ID = 0;
-    public static final int SHOOTER_TARGET_RPM = 1000;
+    public static final int SHOOTER_TARGET_RPM = 4000;
     public static final double RPM_TO_ENCODER_UNITS_PER_100_MS = .1 * 2048.0 / 60.0;
 
     //Vision
@@ -65,8 +69,8 @@ public final class Constants {
     public static final int RANGE4 = 20;
 
     //Shooter hood
-    public static final int ACTUATOR1_PORT = 1;
-    public static final int ACTUATOR2_PORT = 2;
+    public static final int ACTUATOR1_PORT =  8;
+    public static final int ACTUATOR2_PORT = 9;
     
     public static final int ACTUATOR_SPEED = 32;
     public static final int ACTUATOR_LENGTH = 118;
@@ -75,7 +79,8 @@ public final class Constants {
     //Speeds
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
-    public static final Gains kGains_Shooter_Velocity = new Gains(0.0, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
+
+    public static final Gains kGains_Shooter_Velocity = new Gains(0.6, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
     public static final Gains kGains_Climber_Rotation_Speed = new Gains(0.1, 0.0, 0.0, 0.0, 300, 1.0);
 
 }

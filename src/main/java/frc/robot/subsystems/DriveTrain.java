@@ -20,7 +20,7 @@ import frc.robot.Constants;
 import frc.robot.commands.TankDrive;
 
 public class DriveTrain extends SubsystemBase {
-  WPI_TalonFX falconFrontRight, falconRearRight, falconFrontLeft, falconRearLeft;
+  WPI_TalonFX falconFrontRight, falconRearRight, falconMidRight, falconFrontLeft, falconRearLeft, falconMidLeft;
   MotorControllerGroup rightDrive, leftDrive;
   DifferentialDrive drive;
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
@@ -42,10 +42,12 @@ public class DriveTrain extends SubsystemBase {
 
     falconFrontRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_FRONT_RIGHT_ID);
     falconRearRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_REAR_RIGHT_ID);
-    rightDrive = new MotorControllerGroup(falconFrontRight, falconRearRight);
+    falconMidRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_MID_RIGHT_ID);
+    rightDrive = new MotorControllerGroup(falconFrontRight, falconRearRight, falconMidRight);
     falconFrontLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_FRONT_LEFT_ID);
     falconRearLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_REAR_LEFT_ID);
-    leftDrive = new MotorControllerGroup(falconFrontLeft, falconRearLeft);
+    falconMidLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_MID_LEFT_ID);
+    leftDrive = new MotorControllerGroup(falconFrontLeft, falconRearLeft, falconMidLeft);
     drive = new DifferentialDrive(rightDrive, leftDrive);
     this.setDefaultCommand(new TankDrive(this));
 
@@ -80,7 +82,6 @@ public class DriveTrain extends SubsystemBase {
 
   public void autoDrive() {
     var result = camera.getLatestResult();
-    System.out.println(result.hasTargets());
     if (result.hasTargets()) {
 
       double range = PhotonUtils.calculateDistanceToTargetMeters(Constants.CAMERA_HEIGHT_METERS, Constants.TARGET_HEIGHT_METERS, Constants.CAMERA_PITCH_RADIANS, Units.degreesToRadians(result.getBestTarget().getPitch()));
