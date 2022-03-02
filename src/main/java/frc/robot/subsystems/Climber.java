@@ -40,8 +40,11 @@ public class Climber extends SubsystemBase {
     climberMid.setNeutralMode(NeutralMode.Brake);
 
     //encoders
-    climberLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    climberMid.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    climberLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    climberMid.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    
+    climberLeft.setSelectedSensorPosition(0);
+    climberMid.setSelectedSensorPosition(0);
 
     //sets the right climber motor to follow the left one, inverted
     climberRight.follow(climberLeft);
@@ -67,31 +70,41 @@ public class Climber extends SubsystemBase {
     climberMid.config_kP(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kP, Constants.kTimeoutMs);
     climberMid.config_kI(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kI, Constants.kTimeoutMs);
     climberMid.config_kD(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kD, Constants.kTimeoutMs);
+
+    climberLeft.configForwardSoftLimitThreshold(30000, Constants.kTimeoutMs);
+    climberLeft.configReverseSoftLimitThreshold(-30000, Constants.kTimeoutMs);
+    climberMid.configForwardSoftLimitThreshold(50000, Constants.kTimeoutMs);
+    climberMid.configReverseSoftLimitThreshold(0, Constants.kTimeoutMs);
+
+    climberLeft.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
+    climberLeft.configReverseSoftLimitEnable(true, Constants.kTimeoutMs);
+    climberMid.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
+    climberMid.configReverseSoftLimitEnable(true, Constants.kTimeoutMs);
   }
 
   public void getClimberPos() {
 
-    SmartDashboard.putNumber("Middle Climber Position", climberMid.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Left CLimber Position", climberLeft.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Middle Climber Position", climberMid.getSelectedSensorPosition(0));
+    SmartDashboard.putNumber("Left CLimber Position", climberLeft.getSelectedSensorPosition(0));
   }
 
   public void rotateBack() {
     //rotate the right and left climber motors to meet specified degrees
     
-    climberLeft.set(ControlMode.Position, SmartDashboard.getNumber("Rotate to", 0));
+    climberLeft.set(ControlMode.PercentOutput, -0.1);
   }
 
   public void rotateForward() {
     //rotate the right and left climber motors to meet specified degrees
-    climberLeft.set(ControlMode.Position, 0);
+    climberLeft.set(ControlMode.PercentOutput, 0.1);
   }
 
   public void extendMiddle() {
-    climberMid.set(ControlMode.Position, SmartDashboard.getNumber("Extend to", 0));
+    climberMid.set(ControlMode.PercentOutput, 0.1);
   }
 
   public void retractMiddle() {
-    climberMid.set(ControlMode.Position, 0);
+    climberMid.set(ControlMode.PercentOutput, -0.1);
   }
 
   public void stopPivot() {

@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class RotateClimberBackward extends CommandBase {
   private final Climber climber;
@@ -26,7 +28,7 @@ public class RotateClimberBackward extends CommandBase {
   @Override
   public void execute() {
     climber.rotateBack();
-    System.out.println("Runs");
+    System.out.println(SmartDashboard.getNumber("Rotate to", 0));
   }
 
   // Called once the command ends or is interrupted.
