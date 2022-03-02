@@ -74,6 +74,8 @@ public class RobotContainer {
     operatorDPadDown.whenHeld(new HoodDown(shooter));
     operatorDPadDownLeft.whenHeld(new HoodDown(shooter));
     operatorDPadDownRight.whenHeld(new HoodDown(shooter));
+    operatorBButton.whenHeld(new RotateClimberBackward(climber));
+    operatorXButton.whenHeld(new ExtendClimber(climber));
     shooterHandler();
   }
 

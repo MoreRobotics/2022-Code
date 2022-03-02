@@ -21,6 +21,9 @@ public class Climber extends SubsystemBase {
   XboxController operatorController;
 
   public Climber() {
+    SmartDashboard.putNumber("Rotate to", 0);
+    SmartDashboard.putNumber("Extend to", 0);
+    
     climberLeft = new WPI_TalonFX(Constants.CLIMBER_LEFT_MOTOR_ID);
     climberRight = new WPI_TalonFX(Constants.CLIMBER_RIGHT_MOTOR_ID);
     climberMid = new WPI_TalonFX(Constants.CLIMBER_MID_MOTOR_ID);
@@ -68,27 +71,27 @@ public class Climber extends SubsystemBase {
 
   public void getClimberPos() {
 
-    SmartDashboard.putNumber(("Middle Climber Position"), climberMid.getSelectedSensorPosition());
-    SmartDashboard.putNumber(("Left CLimber Position"), climberLeft.getSelectedSensorPosition());
-    ;
+    SmartDashboard.putNumber("Middle Climber Position", climberMid.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Left CLimber Position", climberLeft.getSelectedSensorPosition());
   }
 
   public void rotateBack() {
     //rotate the right and left climber motors to meet specified degrees
-    climberLeft.set(ControlMode.Position, 0);
+    
+    climberLeft.set(ControlMode.Position, SmartDashboard.getNumber("Rotate to", 0));
   }
 
   public void rotateForward() {
     //rotate the right and left climber motors to meet specified degrees
-    climberLeft.set(ControlMode.PercentOutput, 0.1);
+    climberLeft.set(ControlMode.Position, 0);
   }
 
   public void extendMiddle() {
-    climberMid.set(ControlMode.PercentOutput, 0.1);
+    climberMid.set(ControlMode.Position, SmartDashboard.getNumber("Extend to", 0));
   }
 
   public void retractMiddle() {
-    climberMid.set(ControlMode.PercentOutput, -0.1);
+    climberMid.set(ControlMode.Position, 0);
   }
 
   public void stopPivot() {

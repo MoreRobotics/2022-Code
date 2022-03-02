@@ -19,13 +19,14 @@ public class RotateClimberBackward extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.rotateBack();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    climber.rotateBack();
+    System.out.println("Runs");
   }
 
   // Called once the command ends or is interrupted.
