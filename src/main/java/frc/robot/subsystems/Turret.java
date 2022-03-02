@@ -45,6 +45,11 @@ public class Turret extends SubsystemBase {
     turretMotor.config_kI(0, Constants.kGains_Turret_Velocity.kI, Constants.kTimeoutMs);
     turretMotor.config_kD(0, Constants.kGains_Turret_Velocity.kD, Constants.kTimeoutMs);
 
+    turretMotor.configForwardSoftLimitThreshold(Constants.TURRET_MAX_ENCODER_UNITS + Constants.TURRET_OFFSET, Constants.kTimeoutMs);
+    turretMotor.configReverseSoftLimitThreshold(Constants.TURRET_OFFSET, Constants.kTimeoutMs);
+    turretMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
+    turretMotor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs);
+
     camera = new PhotonCamera("gloworm");
     camera.setLED(VisionLEDMode.kOff);
     
@@ -62,23 +67,23 @@ public class Turret extends SubsystemBase {
       targetYaw = result.getBestTarget().getYaw();
       unitsDisplacement = targetYaw * Constants.TURRET_DEGREES_TO_ENCODER;
 
-      targetPosition = turretMotor.getSelectedSensorPosition() + Constants.TURRET_OFFSET + unitsDisplacement;
+      targetPosition = turretMotor.getSelectedSensorPosition() - Constants.TURRET_OFFSET + unitsDisplacement;
 
-      if(targetPosition > 4095) {
-        targetPosition = 4095;
+      if(targetPosition > Constants.TURRET_MAX_ENCODER_UNITS) {
+        targetPosition = Constants.TURRET_MAX_ENCODER_UNITS;
       } 
-      if(targetPosition < 0) {
-        targetPosition = 0;
+      if(targetPosition < Constants.TURRET_MIN_ENCODER_UNITS) {
+        targetPosition = Constants.TURRET_MIN_ENCODER_UNITS;
       }
       
 
     } else {
       targetYaw = 0;
       unitsDisplacement = 0;
-      targetPosition = 2048;
+      targetPosition = Constants.TURRET_FORWARD_ENCODER_VALUE;
     }
     //TODO: test
-    turretMotor.set(ControlMode.Position, (targetPosition - Constants.TURRET_OFFSET) % 4096);
+    turretMotor.set(ControlMode.Position, (targetPosition + Constants.TURRET_OFFSET) % 4096);
   }
 
   @Override
