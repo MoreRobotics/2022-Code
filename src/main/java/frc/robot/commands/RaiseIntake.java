@@ -19,7 +19,6 @@ public class RaiseIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.pressurizeIntake();
     intake.raiseIntake();
   }
 

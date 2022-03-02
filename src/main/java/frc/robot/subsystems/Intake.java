@@ -18,13 +18,12 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   TalonSRX intakeMotor;
   XboxController operatorController;
-  DoubleSolenoid pressureSolenoid, raiseSolenoid;
+  DoubleSolenoid raiseSolenoid;
 
   public Intake() {
     intakeMotor = new TalonSRX(Constants.INTAKE_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
-    pressureSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.PRESSURE_FORWARD_CHANNEL, Constants.PRESSURE_REVERSE_CHANNEL);
-    raiseSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.RAISE_FORWARD_CHANNEL, Constants.RAISE_REVERSE_CHANNEL);
+    raiseSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.FORWARD_CHANNEL, Constants.REVERSE_CHANNEL);
 
   }
 
@@ -46,14 +45,6 @@ public class Intake extends SubsystemBase {
 
   public void lowerIntake() {
     raiseSolenoid.set(Value.kForward);
-  }
-
-  public void pressurizeIntake() {
-    pressureSolenoid.set(Value.kOff);
-  }
-
-  public void depressurizeIntake() {
-    pressureSolenoid.set(Value.kForward);
   }
 
   @Override

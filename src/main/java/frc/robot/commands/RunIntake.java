@@ -19,6 +19,7 @@ public class RunIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    intake.lowerIntake();
     intake.startIntake();
   }
 
@@ -30,6 +31,7 @@ public class RunIntake extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.stopIntake();
+    intake.raiseIntake();
   }
 
   // Returns true when the command should end.
