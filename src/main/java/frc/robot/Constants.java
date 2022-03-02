@@ -67,7 +67,7 @@ public final class Constants {
     //Turret
     public static final int TURRET_MOTOR_ID = 8;
     public static final double TURRET_DEGREES_TO_ENCODER = 4096.0/360.0;
-    public static final int TURRET_OFFSET = 1504;
+    public static final int TURRET_OFFSET = 1379;
     public static final int TURRET_MAX_ENCODER_UNITS = 4095;
     public static final int TURRET_MIN_ENCODER_UNITS = 0;
     public static final int TURRET_FORWARD_ENCODER_VALUE = 2048;
@@ -77,6 +77,6 @@ public final class Constants {
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
     public static final Gains kGains_Shooter_Velocity = new Gains(0, 0, 0, 1023.0/53000.0, 300, 1.0);
-    public static final Gains kGains_Turret_Velocity = new Gains(0.1, 0.0, 0.0, 0.0, 300, 1.0);
+    public static final Gains kGains_Turret_Velocity = new Gains(0.0, 0.0, 0.0, 1023.0/8192.0, 300, 1.0);
 
 }
