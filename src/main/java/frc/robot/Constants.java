@@ -30,6 +30,11 @@ public final class Constants {
     //intake motor
     public static final int INTAKE_MOTOR_ID = 12;
 
+
+    //intake solenoids
+    public static final int FORWARD_CHANNEL = 1;
+    public static final int REVERSE_CHANNEL = 2;
+
     //climber motors
     public static final int CLIMBER_LEFT_MOTOR_ID = 13;
     public static final int CLIMBER_RIGHT_MOTOR_ID = 15;
@@ -70,7 +75,7 @@ public final class Constants {
     public static final int RANGE4 = 20;
 
     //Shooter hood
-    public static final int ACTUATOR1_PORT =  8;
+    public static final int ACTUATOR1_PORT = 8;
     public static final int ACTUATOR2_PORT = 9;
     
     public static final int ACTUATOR_SPEED = 32;
