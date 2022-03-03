@@ -25,7 +25,6 @@ public final class Constants {
     //shooter motors (change later)
     public static final int SHOOTER_LEFT_ID = 6;
     public static final int SHOOTER_RIGHT_ID = 7;
-    public static final int TURRET_MOTOR_ID = 8;
 
     //intake motor
     public static final int INTAKE_MOTOR_ID = 12;
@@ -67,12 +66,6 @@ public final class Constants {
     public static final double TARGET_HEIGHT_METERS = 2.64;
     public static final double CAMERA_PITCH_RADIANS = -Math.PI/60;
     public static final double GOAL_RANGE_METERS = 2;
-    
-    //Ranges
-    public static final int RANGE1 = 5;
-    public static final int RANGE2 = 10;
-    public static final int RANGE3 = 15;
-    public static final int RANGE4 = 20;
 
     //Shooter hood
     public static final int ACTUATOR1_PORT = 8;
@@ -82,11 +75,21 @@ public final class Constants {
     public static final int ACTUATOR_LENGTH = 118;
 
 
+    //Turret
+    public static final int TURRET_MOTOR_ID = 8;
+    public static final double TURRET_DEGREES_TO_ENCODER = 4096.0/360.0;
+    public static final int TURRET_OFFSET = 1379;
+    public static final int TURRET_MAX_ENCODER_UNITS = 4095;
+    public static final int TURRET_MIN_ENCODER_UNITS = 0;
+    public static final int TURRET_FORWARD_ENCODER_VALUE = 2048;
+
+
     //Speeds
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
 
     public static final Gains kGains_Shooter_Velocity = new Gains(0.2, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
     public static final Gains kGains_Climber_Rotation_Speed = new Gains(0.0, 0.0, 0.0, 1023.0/8192.0, 300, 1.0);
+    public static final Gains kGains_Turret_Velocity = new Gains(0.0, 0.0, 0.0, 1023.0/8192.0, 300, 1.0);
 
 }
