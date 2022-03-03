@@ -34,6 +34,8 @@ public class RobotContainer {
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
   JoystickButton driverLBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   JoystickButton driverRBumper = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
+  JoystickButton driverAButton = new JoystickButton(driverController, XboxController.Button.kA.value);
+  JoystickButton driverBButton = new JoystickButton(driverController, XboxController.Button.kB.value);
 
   XboxController operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
   JoystickButton operatorAButton = new JoystickButton(operatorController, XboxController.Button.kA.value);
@@ -74,8 +76,12 @@ public class RobotContainer {
     operatorDPadDown.whenHeld(new HoodDown(shooter));
     operatorDPadDownLeft.whenHeld(new HoodDown(shooter));
     operatorDPadDownRight.whenHeld(new HoodDown(shooter));
-    operatorBButton.whenHeld(new RotateClimberBackward(climber));
-    operatorXButton.whenHeld(new ExtendClimber(climber));
+    // operatorBButton.whenHeld(new RotateClimberBackward(climber));
+    // operatorXButton.whenHeld(new ExtendClimber(climber));
+    driverLBumper.whenHeld(new ExtendClimber(climber));
+    driverRBumper.whenHeld(new RetractClimber(climber));
+    driverAButton.whenHeld(new RotateClimberForward(climber));
+    driverBButton.whenHeld(new RotateClimberBackward(climber));
     shooterHandler();
   }
 

@@ -71,9 +71,9 @@ public class Climber extends SubsystemBase {
     climberMid.config_kI(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kI, Constants.kTimeoutMs);
     climberMid.config_kD(Constants.CLIMBER_SLOT_INDEX_ID, Constants.kGains_Climber_Rotation_Speed.kD, Constants.kTimeoutMs);
 
-    climberLeft.configForwardSoftLimitThreshold(30000, Constants.kTimeoutMs);
-    climberLeft.configReverseSoftLimitThreshold(-30000, Constants.kTimeoutMs);
-    climberMid.configForwardSoftLimitThreshold(50000, Constants.kTimeoutMs);
+    climberLeft.configForwardSoftLimitThreshold(94000, Constants.kTimeoutMs);
+    climberLeft.configReverseSoftLimitThreshold(-100000, Constants.kTimeoutMs);
+    climberMid.configForwardSoftLimitThreshold(191000, Constants.kTimeoutMs);
     climberMid.configReverseSoftLimitThreshold(0, Constants.kTimeoutMs);
 
     climberLeft.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
@@ -91,20 +91,20 @@ public class Climber extends SubsystemBase {
   public void rotateBack() {
     //rotate the right and left climber motors to meet specified degrees
     
-    climberLeft.set(ControlMode.PercentOutput, -0.1);
+    climberLeft.set(ControlMode.PercentOutput, -0.3);
   }
 
   public void rotateForward() {
     //rotate the right and left climber motors to meet specified degrees
-    climberLeft.set(ControlMode.PercentOutput, 0.1);
+    climberLeft.set(ControlMode.PercentOutput, 0.3);
   }
 
   public void extendMiddle() {
-    climberMid.set(ControlMode.PercentOutput, 0.1);
+    climberMid.set(ControlMode.PercentOutput, 1.0);
   }
 
   public void retractMiddle() {
-    climberMid.set(ControlMode.PercentOutput, -0.1);
+    climberMid.set(ControlMode.PercentOutput, -1.0);
   }
 
   public void stopPivot() {
