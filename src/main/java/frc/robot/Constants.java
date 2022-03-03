@@ -33,7 +33,7 @@ public final class Constants {
 
     //intake solenoids
     public static final int FORWARD_CHANNEL = 1;
-    public static final int REVERSE_CHANNEL = 2;
+    public static final int REVERSE_CHANNEL = 0;
 
     //climber motors
     public static final int CLIMBER_LEFT_MOTOR_ID = 13;

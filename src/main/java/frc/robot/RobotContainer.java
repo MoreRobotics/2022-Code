@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -56,6 +59,7 @@ public class RobotContainer {
   public RobotContainer() {
     
     // Configure the button bindings
+    intake.raiseIntake();
     configureButtonBindings();
   }
 
@@ -67,26 +71,27 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    operatorLBumper.whenHeld(new RunIntake(intake));
+
+    operatorLBumper.whenHeld(new ParallelCommandGroup(new RunIntake(intake), new RunTransporter(transporter)));
     operatorRBumper.whenHeld(new RunTransporter(transporter));
-    operatorYButton.whenPressed(new MoveHood(shooter));
+    // operatorYButton.whenPressed(new MoveHood(shooter));
+    operatorBackButton.whenHeld(new ReverseTowerTransporter(transporter));
     operatorDPadUp.whenHeld(new HoodUp(shooter));
     operatorDPadUpLeft.whenHeld(new HoodUp(shooter));
     operatorDPadUpRight.whenHeld(new HoodUp(shooter));
     operatorDPadDown.whenHeld(new HoodDown(shooter));
     operatorDPadDownLeft.whenHeld(new HoodDown(shooter));
     operatorDPadDownRight.whenHeld(new HoodDown(shooter));
-    // operatorBButton.whenHeld(new RotateClimberBackward(climber));
-    // operatorXButton.whenHeld(new ExtendClimber(climber));
     driverLBumper.whenHeld(new ExtendClimber(climber));
     driverRBumper.whenHeld(new RetractClimber(climber));
-    driverAButton.whenHeld(new RotateClimberForward(climber));
-    driverBButton.whenHeld(new RotateClimberBackward(climber));
+    // driverAButton.whenHeld(new RotateClimberForward(climber));
+    // driverBButton.whenHeld(new RotateClimberBackward(climber));
     shooterHandler();
+    
   }
 
   public void shooterHandler() {
-    operatorAButton.whenHeld(new RunShooter(shooter));
+    operatorAButton.whenHeld(new ParallelCommandGroup(new RunShooter(shooter), new RunTowerTransporter(transporter)));
     
   }
 
@@ -98,8 +103,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  /*public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }*/
+    return new ParallelDeadlineGroup(new WaitCommand(1.8), new DriveForwardAuto(driveTrain));
+  }
 }
