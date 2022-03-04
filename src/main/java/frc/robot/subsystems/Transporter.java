@@ -22,7 +22,8 @@ public class Transporter extends SubsystemBase {
     transporterMotorRight = new TalonSRX(Constants.TRANSPORTER_MOTOR_RIGHT);
     towerMotor = new TalonSRX(Constants.TOWER_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
-
+    transporterMotorRight.setInverted(true);
+    transporterMotorLeft.setInverted(true);
     transporterMotorRight.follow(transporterMotorLeft);
   }
 

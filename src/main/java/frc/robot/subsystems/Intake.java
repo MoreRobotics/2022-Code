@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
     intakeMotor = new TalonSRX(Constants.INTAKE_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
     raiseSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.FORWARD_CHANNEL, Constants.REVERSE_CHANNEL);
-
+    intakeMotor.setInverted(true);
   }
 
   public void startIntake() {

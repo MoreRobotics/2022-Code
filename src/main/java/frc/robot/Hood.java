@@ -35,7 +35,7 @@ public class Hood extends Servo {
     
     System.out.println("setPos = " + setPos);
 
-    setSpeed( (setPos/m_length *2)-1);
+    setSpeed((setPos/m_length *2)-1);
   }
 
   //Updates the current position of the actuator
@@ -52,14 +52,11 @@ public class Hood extends Servo {
 
   
   public double getPosition(){
-
     return curPos;
-    
   }
 
   //Detects when the actuator has moved to the desired position
-  public boolean isFinished(){
-    lastTime = 0;
+  public boolean isFinished() {
     return curPos == setPos;
   }
 }

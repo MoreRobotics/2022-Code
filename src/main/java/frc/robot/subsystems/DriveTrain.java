@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -60,6 +61,14 @@ public class DriveTrain extends SubsystemBase {
     falconFrontRight.setSensorPhase(true);
 
     camera = new PhotonCamera("gloworm");
+
+    falconFrontRight.setNeutralMode(NeutralMode.Brake);
+    falconMidRight.setNeutralMode(NeutralMode.Brake);
+    falconRearRight.setNeutralMode(NeutralMode.Brake);
+
+    falconFrontLeft.setNeutralMode(NeutralMode.Brake);
+    falconRearLeft.setNeutralMode(NeutralMode.Brake);
+    falconMidLeft.setNeutralMode(NeutralMode.Brake);
 
   }
 

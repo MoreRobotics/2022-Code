@@ -4,37 +4,36 @@
 
 package frc.robot.commands;
 
-import org.photonvision.common.hardware.VisionLEDMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret;
 
-public class TurnTurret extends CommandBase {
-  /** Creates a new TurnTurret. */
+public class MoveTurret extends CommandBase {
+
   private final Turret turret;
-  public TurnTurret(Turret turret) {
+  private final int pos;
+  /** Creates a new MoveTurret. */
+  public MoveTurret(Turret turret, int pos) {
     this.turret = turret;
-    addRequirements(turret);
+    
+    this.pos = pos;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turret.camera.setLED(VisionLEDMode.kOn);
+    turret.setTurretPos(pos);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    turret.turnTurret();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     turret.stopTurret();
-    turret.camera.setLED(VisionLEDMode.kOff);
   }
 
   // Returns true when the command should end.

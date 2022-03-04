@@ -25,7 +25,7 @@ public class HoodUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setHoodPos(shooter.hood1.get()+1);
+    shooter.setHoodPos(shooter.hood1.getPosition()+1);
   }
 
   // Called once the command ends or is interrupted.

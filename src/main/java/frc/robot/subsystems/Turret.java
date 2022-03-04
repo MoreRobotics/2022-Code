@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -49,8 +50,10 @@ public class Turret extends SubsystemBase {
     turretMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
     turretMotor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs);
 
+    turretMotor.setNeutralMode(NeutralMode.Brake);
+
     camera = new PhotonCamera("gloworm");
-    camera.setLED(VisionLEDMode.kOff);
+    //camera.setLED(VisionLEDMode.kOff);
     
   }
 
@@ -79,10 +82,19 @@ public class Turret extends SubsystemBase {
     } else {
       targetYaw = 0;
       unitsDisplacement = 0;
-      targetPosition = Constants.TURRET_FORWARD_ENCODER_VALUE;
+      targetPosition = Constants.TURRET_UP_POSITION;
     }
     //TODO: test
-    turretMotor.set(ControlMode.Position, (targetPosition + Constants.TURRET_OFFSET) % 4096);
+    turretMotor.set(ControlMode.Position, targetPosition + Constants.TURRET_OFFSET);
+  }
+
+  public void setTurretPos(int pos) {
+    turretMotor.set(ControlMode.Position, pos + Constants.TURRET_OFFSET);
+    System.out.println((pos + Constants.TURRET_OFFSET) % 4096);
+  }
+
+  public void stopTurret() {
+    turretMotor.set(ControlMode.PercentOutput, 0);
   }
 
   @Override

@@ -12,6 +12,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -48,12 +49,25 @@ public class RobotContainer {
   JoystickButton operatorLBumper = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
   JoystickButton operatorRBumper = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
   JoystickButton operatorBackButton = new JoystickButton(operatorController, XboxController.Button.kBack.value);
+
+
+  POVButton operatorDPadLeft = new POVButton(operatorController, 270);
+  POVButton operatorDPadRight = new POVButton(operatorController, 90);
   POVButton operatorDPadUp = new POVButton(operatorController, 0);
   POVButton operatorDPadUpLeft = new POVButton(operatorController, 315);
   POVButton operatorDPadUpRight = new POVButton(operatorController, 45);
   POVButton operatorDPadDown = new POVButton(operatorController, 180);
   POVButton operatorDPadDownLeft = new POVButton(operatorController, 225);
   POVButton operatorDPadDownRight = new POVButton(operatorController, 135);
+
+  POVButton driverDPadUp = new POVButton(driverController, 0);
+  POVButton driverDPadUpLeft = new POVButton(driverController, 315);
+  POVButton driverDPadUpRight = new POVButton(driverController, 45);
+  POVButton driverDPadDown = new POVButton(driverController, 180);
+  POVButton driverDPadDownLeft = new POVButton(driverController, 225);
+  POVButton driverDPadDownRight = new POVButton(driverController, 135);
+
+  JoystickButton driverXButton = new JoystickButton(driverController, XboxController.Button.kX.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -72,26 +86,52 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    operatorLBumper.whenHeld(new ParallelCommandGroup(new RunIntake(intake), new RunTransporter(transporter)));
-    operatorRBumper.whenHeld(new RunTransporter(transporter));
-    // operatorYButton.whenPressed(new MoveHood(shooter));
-    operatorBackButton.whenHeld(new ReverseTowerTransporter(transporter));
-    operatorDPadUp.whenHeld(new HoodUp(shooter));
-    operatorDPadUpLeft.whenHeld(new HoodUp(shooter));
-    operatorDPadUpRight.whenHeld(new HoodUp(shooter));
-    operatorDPadDown.whenHeld(new HoodDown(shooter));
-    operatorDPadDownLeft.whenHeld(new HoodDown(shooter));
-    operatorDPadDownRight.whenHeld(new HoodDown(shooter));
+
+
+    //driver
+
+    //climber
     driverLBumper.whenHeld(new ExtendClimber(climber));
     driverRBumper.whenHeld(new RetractClimber(climber));
-    // driverAButton.whenHeld(new RotateClimberForward(climber));
-    // driverBButton.whenHeld(new RotateClimberBackward(climber));
+
+    //Intake
+    driverXButton.whenHeld(new ParallelCommandGroup(new RunIntake(intake), new RunTransporter(transporter)));
+    
+    //outake
+    driverAButton.whenHeld(new ReverseTowerTransporter(transporter));
+
+    //operator
+
+    //shoot + tower + transporter
+    operatorXButton.whenHeld(new SequentialCommandGroup(new ParallelDeadlineGroup(new WaitCommand(0.7), new RunShooter(shooter)), new ParallelCommandGroup(new RunTowerTransporter(transporter), new RunShooter(shooter))));
+    
+    //hood
+
+    operatorRBumper.whenHeld(new HoodUp(shooter));
+    operatorLBumper.whenHeld(new HoodDown(shooter));
+    operatorYButton.whenPressed(new MoveHood(shooter));
+
+    //turret
+
+    operatorDPadLeft.whenHeld(new MoveTurret(turret, Constants.TURRET_LEFT_POSITION));
+    operatorDPadUpLeft.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_LEFT_POSITION));
+    operatorDPadUp.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_POSITION));
+    operatorDPadUpRight.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_RIGHT_POSITION));
+    operatorDPadRight.whenHeld(new MoveTurret(turret, Constants.TURRET_RIGHT_POSITION));
+
+    
+    operatorAButton.whenHeld(new TurnTurret(turret));
+
+
+
+    
+
     shooterHandler();
 
   }
 
   public void shooterHandler() {
-    operatorAButton.whenHeld(new ParallelCommandGroup(new RunShooter(shooter), new RunTowerTransporter(transporter)));
+    //operatorAButton.whenHeld(new ParallelCommandGroup(new RunShooter(shooter), new RunTowerTransporter(transporter)));
     
   }
 
@@ -105,6 +145,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new ParallelDeadlineGroup(new WaitCommand(1.8), new DriveForwardAuto(driveTrain));
+    return new ParallelCommandGroup(
+      new SequentialCommandGroup(
+      new ParallelDeadlineGroup(new WaitCommand(0.3), new MoveTurret(turret, 2048)), 
+      new ParallelDeadlineGroup(new WaitCommand(0.7), new RunShooter(shooter)), 
+      new ParallelDeadlineGroup(new WaitCommand(1), new RunTowerTransporter(transporter), new RunShooter(shooter))), 
+      new ParallelDeadlineGroup(new WaitCommand(0.5), new DriveForwardAuto(driveTrain)));
   }
 }
