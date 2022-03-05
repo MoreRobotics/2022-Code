@@ -23,5 +23,4 @@ public class Gains {
         kIzone = _kIzone;
         kPeakOutput = _kPeakOutput;
     }
-
 }

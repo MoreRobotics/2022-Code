@@ -14,6 +14,7 @@ import org.photonvision.common.hardware.VisionLEDMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -47,14 +48,18 @@ public class Turret extends SubsystemBase {
 
     turretMotor.configForwardSoftLimitThreshold(Constants.TURRET_MAX_ENCODER_UNITS + Constants.TURRET_OFFSET, Constants.kTimeoutMs);
     turretMotor.configReverseSoftLimitThreshold(Constants.TURRET_OFFSET, Constants.kTimeoutMs);
-    turretMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
-    turretMotor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs);
+    turretMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMs);
+    turretMotor.configReverseSoftLimitEnable(false, Constants.kTimeoutMs);
 
     turretMotor.setNeutralMode(NeutralMode.Brake);
 
     camera = new PhotonCamera("gloworm");
     //camera.setLED(VisionLEDMode.kOff);
     
+  }
+
+  public double getTurretOffset() {
+    return SmartDashboard.getNumber("Turret Offset", Constants.TURRET_OFFSET);
   }
 
   public double getTurretPos() {
@@ -69,7 +74,7 @@ public class Turret extends SubsystemBase {
       targetYaw = result.getBestTarget().getYaw();
       unitsDisplacement = targetYaw * Constants.TURRET_DEGREES_TO_ENCODER;
 
-      targetPosition = turretMotor.getSelectedSensorPosition() - Constants.TURRET_OFFSET + unitsDisplacement;
+      targetPosition = turretMotor.getSelectedSensorPosition() - getTurretOffset() + unitsDisplacement;
 
       if(targetPosition > Constants.TURRET_MAX_ENCODER_UNITS) {
         targetPosition = Constants.TURRET_MAX_ENCODER_UNITS;
@@ -85,12 +90,19 @@ public class Turret extends SubsystemBase {
       targetPosition = Constants.TURRET_UP_POSITION;
     }
     //TODO: test
-    turretMotor.set(ControlMode.Position, targetPosition + Constants.TURRET_OFFSET);
+    turretMotor.set(ControlMode.Position, targetPosition + getTurretOffset());
+  }
+
+  public void percentTurretLeft() {
+    turretMotor.set(ControlMode.PercentOutput, -0.3);
+  }
+
+  public void percentTurretRight() {
+    turretMotor.set(ControlMode.PercentOutput, 0.3);
   }
 
   public void setTurretPos(int pos) {
-    turretMotor.set(ControlMode.Position, pos + Constants.TURRET_OFFSET);
-    System.out.println((pos + Constants.TURRET_OFFSET) % 4096);
+    turretMotor.set(ControlMode.Position, pos + getTurretOffset());
   }
 
   public void stopTurret() {

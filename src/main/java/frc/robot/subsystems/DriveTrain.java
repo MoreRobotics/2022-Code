@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.TankDrive;
+import frc.robot.commands.ArcadeDrive;
 
 public class DriveTrain extends SubsystemBase {
   WPI_TalonFX falconFrontRight, falconRearRight, falconMidRight, falconFrontLeft, falconRearLeft, falconMidLeft;
@@ -43,14 +44,15 @@ public class DriveTrain extends SubsystemBase {
 
     falconFrontRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_FRONT_RIGHT_ID);
     falconRearRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_REAR_RIGHT_ID);
-    falconMidRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_MID_RIGHT_ID);
-    rightDrive = new MotorControllerGroup(falconFrontRight, falconRearRight, falconMidRight);
+    // falconMidRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_MID_RIGHT_ID);
+    rightDrive = new MotorControllerGroup(falconFrontRight, falconRearRight/*, falconMidRight*/);
     falconFrontLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_FRONT_LEFT_ID);
     falconRearLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_REAR_LEFT_ID);
-    falconMidLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_MID_LEFT_ID);
-    leftDrive = new MotorControllerGroup(falconFrontLeft, falconRearLeft, falconMidLeft);
+    //falconMidLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_MID_LEFT_ID);
+    leftDrive = new MotorControllerGroup(falconFrontLeft, falconRearLeft/*, falconMidLeft*/);
     drive = new DifferentialDrive(rightDrive, leftDrive);
-    this.setDefaultCommand(new TankDrive(this));
+
+    leftDrive.setInverted(true);       
 
     falconFrontLeft.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
     falconFrontRight.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
@@ -62,37 +64,26 @@ public class DriveTrain extends SubsystemBase {
 
     camera = new PhotonCamera("gloworm");
 
-    falconFrontRight.setNeutralMode(NeutralMode.Brake);
-    falconMidRight.setNeutralMode(NeutralMode.Brake);
-    falconRearRight.setNeutralMode(NeutralMode.Brake);
+    // falconFrontRight.setNeutralMode(NeutralMode.Brake);
+    // falconMidRight.setNeutralMode(NeutralMode.Brake);
+    // falconRearRight.setNeutralMode(NeutralMode.Brake);
 
-    falconFrontLeft.setNeutralMode(NeutralMode.Brake);
-    falconRearLeft.setNeutralMode(NeutralMode.Brake);
-    falconMidLeft.setNeutralMode(NeutralMode.Brake);
+    // falconFrontLeft.setNeutralMode(NeutralMode.Brake);
+    // falconRearLeft.setNeutralMode(NeutralMode.Brake);
+    // falconMidLeft.setNeutralMode(NeutralMode.Brake);
 
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-    
-  }
+  public void periodic() {}
 
   public void drive() {
-    drive.arcadeDrive(-driverController.getRightX(), -driverController.getLeftY());
+    drive.arcadeDrive(-driverController.getLeftY()*0.7, -driverController.getRightX());
   }
+
 
   public void driveForward() {
-    drive.tankDrive(-0.5, -0.5);
-  }
-
-  public void stopDrive() {
-    drive.tankDrive(0, 0);
+    drive.arcadeDrive(0.5, 0);
   }
 
   public void autoDrive() {

@@ -7,31 +7,31 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class DriveForwardAuto extends CommandBase {
-  /** Creates a new DriveForwardAuto. */
-  private DriveTrain driveTrain;
-  public DriveForwardAuto(DriveTrain driveTrain) {
+public class ArcadeDrive extends CommandBase {
+  /** Creates a new TankDrive. */
+  private final DriveTrain driveTrain;
+  public ArcadeDrive(DriveTrain driveTrain) {
     this.driveTrain = driveTrain;
-    addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.driveForward();
+    driveTrain.drive();
   }
-
+    
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // driveTrain.stopDrive();
+
   }
 
   // Returns true when the command should end.

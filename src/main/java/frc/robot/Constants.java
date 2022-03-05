@@ -13,22 +13,19 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
     public static final int DRIVE_TRAIN_FRONT_LEFT_ID = 3;
     public static final int DRIVE_TRAIN_FRONT_RIGHT_ID = 4;
     public static final int DRIVE_TRAIN_REAR_LEFT_ID = 2;
-    public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 1;
+    public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 0;
     public static final int DRIVE_TRAIN_MID_LEFT_ID = 5;
-    public static final int DRIVE_TRAIN_MID_RIGHT_ID = 0;
-    
-
+    public static final int DRIVE_TRAIN_MID_RIGHT_ID = 1;
+ 
     //shooter motors (change later)
     public static final int SHOOTER_LEFT_ID = 7;
     public static final int SHOOTER_RIGHT_ID = 6;
 
     //intake motor
     public static final int INTAKE_MOTOR_ID = 12;
-
 
     //intake solenoids
     public static final int FORWARD_CHANNEL = 1;
@@ -58,7 +55,7 @@ public final class Constants {
     public static final double SHOOTER_SPEED = 1;
     public static final double ENCODER_UNITS_TO_DEGREES = 2048.0/360.0 * 10;
     public static final int SHOOTER_SLOT_INDEX_ID = 0;
-    public static final int SHOOTER_TARGET_RPM = 4000;
+    public static final int SHOOTER_TARGET_RPM = 3700;
     public static final double RPM_TO_ENCODER_UNITS_PER_100_MS = .1 * 2048.0 / 60.0;
 
     //Vision
@@ -74,11 +71,10 @@ public final class Constants {
     public static final int ACTUATOR_SPEED = 32;
     public static final int ACTUATOR_LENGTH = 118;
 
-
     //Turret
     public static final int TURRET_MOTOR_ID = 8;
     public static final double TURRET_DEGREES_TO_ENCODER = 4096.0/360.0;
-    public static final int TURRET_OFFSET = 1280;
+    public static final int TURRET_OFFSET = 2202;
     public static final int TURRET_MAX_ENCODER_UNITS = 4095;
     public static final int TURRET_MIN_ENCODER_UNITS = 0;
     //Turret position values
@@ -88,9 +84,6 @@ public final class Constants {
     public static final int TURRET_UP_RIGHT_POSITION = 3072;
     public static final int TURRET_RIGHT_POSITION = 4095;
 
-    
-
-
     //Speeds
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
@@ -98,7 +91,4 @@ public final class Constants {
     public static final Gains kGains_Shooter_Velocity = new Gains(0.6, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
     public static final Gains kGains_Climber_Rotation_Speed = new Gains(0.0, 0.0, 0.0, 1023.0/8192.0, 300, 1.0);
     public static final Gains kGains_Turret_Velocity = new Gains(5, 0, 0.5, 0.0, 300, 1.0);
-    // 1023.0/8192.0
-    
-
 }

@@ -5,33 +5,33 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Turret;
 
-public class DriveForwardAuto extends CommandBase {
-  /** Creates a new DriveForwardAuto. */
-  private DriveTrain driveTrain;
-  public DriveForwardAuto(DriveTrain driveTrain) {
-    this.driveTrain = driveTrain;
-    addRequirements(driveTrain);
+public class TurnTurretLeft extends CommandBase {
+
+  private final Turret turret;
+  /** Creates a new TurnTurretLeft. */
+  public TurnTurretLeft(Turret turret) {
+    this.turret = turret;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    turret.percentTurretLeft();
   }
+
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    driveTrain.driveForward();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // driveTrain.stopDrive();
+    turret.stopTurret();
   }
 
   // Returns true when the command should end.
