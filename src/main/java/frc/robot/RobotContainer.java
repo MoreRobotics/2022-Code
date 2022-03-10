@@ -123,7 +123,7 @@ public class RobotContainer {
   public void shooterHandler() {
     operatorXButton.whenHeld(new SequentialCommandGroup(
       new ParallelDeadlineGroup(new WaitCommand(0.7), new RunShooter(shooter)), 
-      new ParallelCommandGroup(new RunTowerTransporter(transporter), new RunShooter(shooter))));
+      new ParallelCommandGroup(new RunTowerTransporter(transporter), new WaitCommand(0.7), new RunShooter(shooter))));
   }
 
   /**

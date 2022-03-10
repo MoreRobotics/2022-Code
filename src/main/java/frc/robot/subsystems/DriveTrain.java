@@ -39,7 +39,6 @@ public class DriveTrain extends SubsystemBase {
   double forwardSpeed;
   double rotationSpeed;
 
-  /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
 
     falconFrontRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_FRONT_RIGHT_ID);
@@ -78,7 +77,8 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {}
 
   public void drive() {
-    drive.arcadeDrive(-driverController.getLeftY()*0.7, -driverController.getRightX());
+    //double speed = Math.pow(driverController.getLeftY(), 2);
+    drive.arcadeDrive(-driverController.getLeftY() * Math.abs(-driverController.getLeftY()), -driverController.getRightX()*0.7);
   }
 
 
