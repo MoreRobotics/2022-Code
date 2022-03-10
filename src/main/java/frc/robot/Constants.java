@@ -88,6 +88,11 @@ public final class Constants {
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
 
+    public static final double kS = 0.63486;
+    public static final double kV = 2.451;
+    public static final double kA = 0.27227;
+    public static final double kTrackWidth = 0.80452;
+
     public static final Gains kGains_Shooter_Velocity = new Gains(0.6, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
     public static final Gains kGains_Climber_Rotation_Speed = new Gains(0.0, 0.0, 0.0, 1023.0/8192.0, 300, 1.0);
     public static final Gains kGains_Turret_Velocity = new Gains(5, 0, 0.5, 0.0, 300, 1.0);
