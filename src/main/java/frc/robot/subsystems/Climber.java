@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,6 +20,7 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   WPI_TalonFX climberLeft, climberRight, climberMid;
   XboxController operatorController;
+  DigitalInput limitSwitch;
 
   public Climber() {
     SmartDashboard.putNumber("Rotate to", 0);
@@ -27,6 +29,8 @@ public class Climber extends SubsystemBase {
     climberLeft = new WPI_TalonFX(Constants.CLIMBER_LEFT_MOTOR_ID);
     climberRight = new WPI_TalonFX(Constants.CLIMBER_RIGHT_MOTOR_ID);
     climberMid = new WPI_TalonFX(Constants.CLIMBER_MID_MOTOR_ID);
+    limitSwitch = new DigitalInput(Constants.CLIMBER_LIMIT_SWITCH_PORT);
+
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
 
     //resets encoders
@@ -104,7 +108,13 @@ public class Climber extends SubsystemBase {
   }
 
   public void retractMiddle() {
-    climberMid.set(ControlMode.PercentOutput, -1.0);
+
+    if (!safeCheck()) {
+
+      climberMid.set(ControlMode.PercentOutput, -1.0);
+
+    }
+    
   }
 
   public void stopPivot() {
@@ -113,6 +123,24 @@ public class Climber extends SubsystemBase {
 
   public void stopMiddle() {
     climberMid.set(ControlMode.PercentOutput, 0);
+  }
+
+  //Checks limit switch
+  public Boolean safeCheck() {
+
+    Boolean safe;
+
+    if (limitSwitch.get()){
+
+      safe = true;
+
+    } else {
+
+      safe = false;
+
+    }
+
+    return safe;
   }
 
   @Override

@@ -33,11 +33,12 @@ public final class Constants {
     public static final int FORWARD_CHANNEL = 1;
     public static final int REVERSE_CHANNEL = 0;
 
-    //climber motors
+    //climber
     public static final int CLIMBER_LEFT_MOTOR_ID = 13;
     public static final int CLIMBER_RIGHT_MOTOR_ID = 15;
     public static final int CLIMBER_MID_MOTOR_ID = 14;
     public static final int CLIMBER_SLOT_INDEX_ID = 0;
+    public static final int CLIMBER_LIMIT_SWITCH_PORT = -1;
 
     //transporter motors
     public static final int TRANSPORTER_MOTOR_LEFT = 9;
