@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Shooter;
 
 
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
     
     SmartDashboard.putNumber("Turret Offset", m_robotContainer.turret.getTurretPos());
     SmartDashboard.putNumber("Hood Target Angle", 0);
+    
   }
 
   /**
@@ -58,6 +60,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Turret Position", m_robotContainer.turret.getTurretPos());
     double targetRPM = m_robotContainer.shooter.getShootRPM(SmartDashboard.getNumber("Distance", 0), SmartDashboard.getNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM));
+    SmartDashboard.putBoolean("Limit Switch Status", m_robotContainer.climber.safeCheck());
+    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
