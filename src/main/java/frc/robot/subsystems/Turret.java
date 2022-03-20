@@ -48,8 +48,8 @@ public class Turret extends SubsystemBase {
 
     turretMotor.configForwardSoftLimitThreshold(Constants.TURRET_MAX_ENCODER_UNITS + Constants.TURRET_OFFSET, Constants.kTimeoutMs);
     turretMotor.configReverseSoftLimitThreshold(Constants.TURRET_OFFSET, Constants.kTimeoutMs);
-    turretMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMs);
-    turretMotor.configReverseSoftLimitEnable(false, Constants.kTimeoutMs);
+    turretMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
+    turretMotor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs);
 
     turretMotor.setNeutralMode(NeutralMode.Brake);
 
@@ -63,7 +63,6 @@ public class Turret extends SubsystemBase {
   }
 
   public double getTurretPos() {
-
     return turretMotor.getSelectedSensorPosition();
   }
 
@@ -74,7 +73,7 @@ public class Turret extends SubsystemBase {
       targetYaw = result.getBestTarget().getYaw();
       unitsDisplacement = targetYaw * Constants.TURRET_DEGREES_TO_ENCODER;
 
-      targetPosition = turretMotor.getSelectedSensorPosition() - getTurretOffset() + unitsDisplacement;
+      targetPosition = turretMotor.getSelectedSensorPosition() - Constants.TURRET_OFFSET + unitsDisplacement;
 
       if(targetPosition > Constants.TURRET_MAX_ENCODER_UNITS) {
         targetPosition = Constants.TURRET_MAX_ENCODER_UNITS;
@@ -90,7 +89,7 @@ public class Turret extends SubsystemBase {
       targetPosition = Constants.TURRET_UP_POSITION;
     }
     //TODO: test
-    turretMotor.set(ControlMode.Position, targetPosition + getTurretOffset());
+    turretMotor.set(ControlMode.Position, targetPosition + Constants.TURRET_OFFSET);
   }
 
   public void percentTurretLeft() {
@@ -102,7 +101,7 @@ public class Turret extends SubsystemBase {
   }
 
   public void setTurretPos(int pos) {
-    turretMotor.set(ControlMode.Position, pos + getTurretOffset());
+    turretMotor.set(ControlMode.Position, pos + Constants.TURRET_OFFSET);
   }
 
   public void stopTurret() {
@@ -112,5 +111,6 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Turret Position", getTurretPos());
   }
 }

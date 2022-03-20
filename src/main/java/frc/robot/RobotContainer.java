@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -30,6 +35,7 @@ public class RobotContainer {
   Climber climber = new Climber();
   Turret turret = new Turret();
   Transporter transporter = new Transporter();
+  TrajectoryManager trajectoryManager = new TrajectoryManager();
 
   //XboxController setup
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
@@ -95,13 +101,12 @@ public class RobotContainer {
     operatorDPadDownRight.whenHeld(new TurnTurretRight(turret));
     operatorDPadUpRight.whenHeld(new TurnTurretRight(turret));
     operatorDPadUp.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_POSITION));     
-    operatorAButton.whenHeld(new TurnTurret(turret));
+    operatorAButton.whenHeld(new ParallelCommandGroup(new TurnTurret(turret), new MoveHoodAuto(shooter)));
   }
 
   private void hoodHandler() {
     operatorRBumper.whenHeld(new HoodUp(shooter));
     operatorLBumper.whenHeld(new HoodDown(shooter));
-    operatorYButton.whenPressed(new MoveHood(shooter));
   }
 
 
@@ -118,12 +123,21 @@ public class RobotContainer {
   private void climberHandler() {
     driverLBumper.whenHeld(new ExtendClimber(climber));
     driverRBumper.whenHeld(new RetractClimber(climber));
+    driverDPadDown.whenHeld(new RotateClimberBackward(climber));
+    driverDPadUp.whenHeld(new RotateClimberForward(climber));
   }
 
   public void shooterHandler() {
     operatorXButton.whenHeld(new SequentialCommandGroup(
-      new ParallelDeadlineGroup(new WaitCommand(0.7), new RunShooter(shooter)), 
-      new ParallelCommandGroup(new RunTowerTransporter(transporter), new WaitCommand(0.7), new RunShooter(shooter))));
+      new ParallelDeadlineGroup(new WaitCommand(2.5), new RunShooter(shooter), new TurnTurret(turret)), 
+      new ParallelDeadlineGroup(new WaitCommand(2.0), new RunTower(transporter), new RunShooter(shooter), new TurnTurret(turret), new MoveHoodAuto(shooter)),
+      new ParallelCommandGroup(new RunTowerTransporter(transporter), new RunShooter(shooter), new TurnTurret(turret))));
+  }
+
+  public void shooterHandler1() {
+    operatorXButton.whenHeld(new ParallelCommandGroup(
+      new ParallelCommandGroup(new RunShooter(shooter), new TurnTurret(turret), new MoveHoodAuto(shooter)),
+      new SequentialCommandGroup(new WaitCommand(2.5), new RunTower(transporter), new WaitCommand(2.0), new RunTowerTransporter(transporter))));
   }
 
   /**
@@ -133,12 +147,12 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-
-    return new ParallelCommandGroup(
-      new SequentialCommandGroup(
-      new ParallelDeadlineGroup(new WaitCommand(1), new MoveTurret(turret, Constants.TURRET_UP_POSITION)), 
-      new ParallelDeadlineGroup(new WaitCommand(1), new RunShooter(shooter)), 
-      new ParallelDeadlineGroup(new WaitCommand(1.5), new RunTowerTransporter(transporter), new RunShooter(shooter)), 
-      new ParallelDeadlineGroup(new WaitCommand(1.5), new DriveForwardAuto(driveTrain))));
+    // return new ParallelCommandGroup(
+    //   new SequentialCommandGroup(
+    //   new ParallelDeadlineGroup(new WaitCommand(1), new MoveTurret(turret, Constants.TURRET_UP_POSITION)), 
+    //   new ParallelDeadlineGroup(new WaitCommand(1), new RunShooter(shooter)), 
+    //   new ParallelDeadlineGroup(new WaitCommand(1.5), new RunTowerTransporter(transporter), new RunShooter(shooter)), 
+    //   new ParallelDeadlineGroup(new WaitCommand(1.5), new DriveForwardAuto(driveTrain))));
+    return new RunAuto(driveTrain, trajectoryManager.testPath);
   }
 }

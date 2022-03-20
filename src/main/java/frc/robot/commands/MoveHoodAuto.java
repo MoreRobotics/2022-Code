@@ -4,13 +4,18 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
-public class RunShooter extends CommandBase {
+
+public class MoveHoodAuto extends CommandBase {
+
   private final Shooter shooter;
-  /** Creates a new RunShooter. */
-  public RunShooter(Shooter shooter) {
+
+  /** Creates a new AutoMoveHood. */
+  public MoveHoodAuto(Shooter shooter) {
     this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
@@ -18,21 +23,18 @@ public class RunShooter extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.autoStartShooterVelocity();
+    shooter.hood1.setAutoHood(SmartDashboard.getNumber("Distance", 0), SmartDashboard.getNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM));
+    shooter.hood2.setAutoHood(SmartDashboard.getNumber("Distance", 0), SmartDashboard.getNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooter.stopShooter();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

@@ -4,15 +4,16 @@
 
 package frc.robot;
 
-import com.revrobotics.ColorSensorV3;
 
-import edu.wpi.first.wpilibj.I2C;
+
+import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Shooter;
 
 
 /**
@@ -24,8 +25,6 @@ import frc.robot.subsystems.Turret;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private ColorSensorV3 m_colorSensor;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,10 +35,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_colorSensor = new ColorSensorV3(i2cPort);
     
     SmartDashboard.putNumber("Turret Offset", m_robotContainer.turret.getTurretPos());
-    SmartDashboard.putNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM);
     SmartDashboard.putNumber("Hood Target Angle", 0);
   }
 
@@ -58,14 +55,16 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    SmartDashboard.putNumber("Blue", m_colorSensor.getBlue());
-    SmartDashboard.putNumber("Red", m_colorSensor.getRed());
+
     SmartDashboard.putNumber("Turret Position", m_robotContainer.turret.getTurretPos());
+    double targetRPM = m_robotContainer.shooter.getShootRPM(SmartDashboard.getNumber("Distance", 0), SmartDashboard.getNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM));
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    m_robotContainer.driveTrain.setCoast();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -95,6 +94,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.driveTrain.setDefaultCommand(new ArcadeDrive(m_robotContainer.driveTrain));
+    // m_robotContainer.driveTrain.leftDrive.setInverted(true);
+ 
   }
 
   /** This function is called periodically during operator control. */

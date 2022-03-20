@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Hood extends Servo {
 
@@ -22,6 +23,27 @@ public class Hood extends Servo {
     setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
     m_length = length;
     m_speed = speed;
+  }
+
+  public double setAutoHood(double distance, double hoodPos) {
+
+    int closeHoodPos = Constants.CLOSE_SPOT_HOOD_POS;
+    double closeDistance = Constants.CLOSE_SPOT_LIMELIGHT_DISTANCE;
+    int farHoodPos = Constants.FAR_SPOT_HOOD_POS;
+    double farDistance = Constants.FAR_SPOT_LIMELIGHT_DISTANCE;
+
+    double shootHoodPos;
+
+
+    
+    shootHoodPos = ((farHoodPos - closeHoodPos)/(farDistance - closeDistance))*(distance - closeDistance);
+
+    SmartDashboard.putNumber("Hood Angle", shootHoodPos);
+
+    System.out.println(shootHoodPos);
+    setPosition(shootHoodPos);
+    return shootHoodPos;
+
   }
 
   // moves actuator to desired position

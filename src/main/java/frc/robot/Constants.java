@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -46,22 +48,23 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
 
-    public static final double EDGES_PER_REVOLUTION = 21448.15;
+    public static final double EDGES_PER_REVOLUTION = 2048 * 74 / 10;
     //public static final double EDGES_PER_REVOLUTION = 2048;
-    public static final double WHEEL_DIAMETER = .152;
+    public static final double WHEEL_DIAMETER = 0.1016;
+    public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
     //Shooter
     public static final int kTimeoutMs = 30;
     public static final double SHOOTER_SPEED = 1;
     public static final double ENCODER_UNITS_TO_DEGREES = 2048.0/360.0 * 10;
     public static final int SHOOTER_SLOT_INDEX_ID = 0;
-    public static final int SHOOTER_TARGET_RPM = 3700;
+    public static final int SHOOTER_TARGET_RPM = 2150;
     public static final double RPM_TO_ENCODER_UNITS_PER_100_MS = .1 * 2048.0 / 60.0;
 
     //Vision
-    public static final double CAMERA_HEIGHT_METERS = 0.65;
+    public static final double CAMERA_HEIGHT_METERS = 0.864;
     public static final double TARGET_HEIGHT_METERS = 2.64;
-    public static final double CAMERA_PITCH_RADIANS = -Math.PI/60;
+    public static final double CAMERA_PITCH_RADIANS = Math.PI*41/180;
     public static final double GOAL_RANGE_METERS = 2;
 
     //Shooter hood
@@ -74,7 +77,7 @@ public final class Constants {
     //Turret
     public static final int TURRET_MOTOR_ID = 8;
     public static final double TURRET_DEGREES_TO_ENCODER = 4096.0/360.0;
-    public static final int TURRET_OFFSET = 2202;
+    public static final int TURRET_OFFSET = 743;
     public static final int TURRET_MAX_ENCODER_UNITS = 4095;
     public static final int TURRET_MIN_ENCODER_UNITS = 0;
     //Turret position values
@@ -84,16 +87,35 @@ public final class Constants {
     public static final int TURRET_UP_RIGHT_POSITION = 3072;
     public static final int TURRET_RIGHT_POSITION = 4095;
 
+    public static final double kRamseteB = 2.0;
+    public static final double kRamseteZeta = 0.7;
+    public static final double kPDriveVelRight = 2.5271;
+    public static final double kPDriveVelLeft = 2.4335;
+
     //Speeds
     public static final double INTAKE_SPEED = 1.0;
     public static final double TRANSPORTER_SPEED = 1.0;
 
-    public static final double kS = 0.63486;
-    public static final double kV = 2.451;
-    public static final double kA = 0.27227;
+    public static final double kS = 0.63943;
+    public static final double kV = 2.4417;
+    public static final double kA = 0.25413;
     public static final double kTrackWidth = 0.80452;
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidth);
 
-    public static final Gains kGains_Shooter_Velocity = new Gains(0.6, 0.0, 0.0, 1023.0/53000.0, 300, 1.0);
+    public static final Gains kGains_Shooter_Velocity = new Gains(0.5, 0.000, 0.0, 1023.0/16384.0, 300, 1.0);
     public static final Gains kGains_Climber_Rotation_Speed = new Gains(0.0, 0.0, 0.0, 1023.0/8192.0, 300, 1.0);
     public static final Gains kGains_Turret_Velocity = new Gains(5, 0, 0.5, 0.0, 300, 1.0);
+
+
+    //close shooting spot
+    public static final int CLOSE_SPOT_SHOOTER_RPM = 2150;
+    public static final int CLOSE_SPOT_HOOD_POS = 0;
+    public static final double CLOSE_SPOT_LIMELIGHT_DISTANCE = 1.638;
+
+
+    //far shooting spot
+    public static final int FAR_SPOT_SHOOTER_RPM = 2500;
+    public static final int FAR_SPOT_HOOD_POS = 50;
+    public static final double FAR_SPOT_LIMELIGHT_DISTANCE = 3.170;
+
 }
