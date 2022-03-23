@@ -83,7 +83,7 @@ public class DriveTrain extends SubsystemBase {
     leftPIDController = new PIDController(Constants.kPDriveVelLeft, 0, 0);
     rightPIDController = new PIDController(Constants.kPDriveVelRight, 0, 0);
 
-    slewRateLimiter = new SlewRateLimiter(1.5); //CHANGED FROM 1.2
+    slewRateLimiter = new SlewRateLimiter(2.5); //CHANGED FROM 1.2
 
     final TalonSRX gyroMotor = new TalonSRX(Constants.INTAKE_MOTOR_ID);
     gyro = new PigeonIMU(gyroMotor);
@@ -133,9 +133,9 @@ public class DriveTrain extends SubsystemBase {
 
   public void drive() {
     //double speed = Math.pow(driverController.getLeftY(), 2);
-    System.out.println(slewRateLimiter.calculate(driverController.getLeftY()));
-    System.out.println(driverController.getRightX()*0.7);
-    drive.arcadeDrive(slewRateLimiter.calculate(driverController.getLeftY()), driverController.getRightX()*0.7);
+    // System.out.println(slewRateLimiter.calculate(driverController.getLeftY()));
+    // System.out.println(driverController.getRightX()*0.7);
+    drive.arcadeDrive(slewRateLimiter.calculate(driverController.getLeftY()), driverController.getRightX());
   }
 
   public void setCoast() {
