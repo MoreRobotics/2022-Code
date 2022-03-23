@@ -155,23 +155,17 @@ public class Shooter extends SubsystemBase {
     }    
   }
 
-  public double getShootRPM(double distance, double shooterRPM) {
-    
-    int closeRPM = Constants.CLOSE_SPOT_SHOOTER_RPM;
-    double closeDistance = Constants.CLOSE_SPOT_LIMELIGHT_DISTANCE;
-    int farRPM = Constants.FAR_SPOT_SHOOTER_RPM;
-    double farDistance = Constants.FAR_SPOT_LIMELIGHT_DISTANCE;
-
-    double shootRPM;
-
-
-    
-    shootRPM = (((farRPM - closeRPM)/(farDistance - closeDistance))*(distance - closeDistance) + closeRPM);
-
+  
+  public void updateShootRPM(double distance) {
+    double shootRPM = (((Constants.FAR_SPOT_SHOOTER_RPM - Constants.CLOSE_SPOT_SHOOTER_RPM)/
+      (Constants.FAR_SPOT_LIMELIGHT_DISTANCE - Constants.CLOSE_SPOT_LIMELIGHT_DISTANCE))* //TODO: Test
+      (distance - Constants.CLOSE_SPOT_LIMELIGHT_DISTANCE) + Constants.CLOSE_SPOT_SHOOTER_RPM);
     SmartDashboard.putNumber("Shooter Target RPM", shootRPM);
+  }
 
-    return shootRPM;
-
+  public void autoHood() {
+    hood1.setAutoHood(SmartDashboard.getNumber("Distance", 0));
+    hood2.setAutoHood(SmartDashboard.getNumber("Distance", 0));
   }
   
   
@@ -179,6 +173,7 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     hood1.updateCurPos();
+    updateShootRPM(SmartDashboard.getNumber("Distance", 0));
     SmartDashboard.putNumber("Shooter RPM", shooterLeft.getSelectedSensorVelocity() / Constants.RPM_TO_ENCODER_UNITS_PER_100_MS);
     SmartDashboard.putNumber("Shooter RPM Graph", shooterLeft.getSelectedSensorVelocity() / Constants.RPM_TO_ENCODER_UNITS_PER_100_MS);
     SmartDashboard.putNumber("Hood Angle", hood1.getPosition());

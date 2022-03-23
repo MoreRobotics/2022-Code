@@ -127,6 +127,7 @@ public class RobotContainer {
     driverDPadUp.whenHeld(new RotateClimberForward(climber));
   }
 
+  /*
   public void shooterHandler() {
     operatorXButton.whenHeld(new SequentialCommandGroup(
       new ParallelDeadlineGroup(new WaitCommand(2.5), new RunShooter(shooter), new TurnTurret(turret)), 
@@ -134,10 +135,12 @@ public class RobotContainer {
       new ParallelCommandGroup(new RunTowerTransporter(transporter), new RunShooter(shooter), new TurnTurret(turret))));
   }
 
-  public void shooterHandler1() {
+  */
+  public void shooterHandler() {
     operatorXButton.whenHeld(new ParallelCommandGroup(
-      new ParallelCommandGroup(new RunShooter(shooter), new TurnTurret(turret), new MoveHoodAuto(shooter)),
-      new SequentialCommandGroup(new WaitCommand(2.5), new RunTower(transporter), new WaitCommand(2.0), new RunTowerTransporter(transporter))));
+      new AimBot(shooter),
+      new TurnTurret(turret),
+      new SequentialCommandGroup(new WaitCommand(2.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))));
   }
 
   /**

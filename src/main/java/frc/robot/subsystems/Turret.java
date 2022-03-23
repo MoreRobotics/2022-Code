@@ -59,6 +59,7 @@ public class Turret extends SubsystemBase {
   }
 
   public double getTurretOffset() {
+    System.out.println(SmartDashboard.getNumber("Turret Offset", Constants.TURRET_OFFSET));
     return SmartDashboard.getNumber("Turret Offset", Constants.TURRET_OFFSET);
   }
 
@@ -75,12 +76,12 @@ public class Turret extends SubsystemBase {
 
       targetPosition = turretMotor.getSelectedSensorPosition() - Constants.TURRET_OFFSET + unitsDisplacement;
 
-      if(targetPosition > Constants.TURRET_MAX_ENCODER_UNITS) {
-        targetPosition = Constants.TURRET_MAX_ENCODER_UNITS;
-      } 
-      if(targetPosition < Constants.TURRET_MIN_ENCODER_UNITS) {
-        targetPosition = Constants.TURRET_MIN_ENCODER_UNITS;
-      }
+      // if(targetPosition > Constants.TURRET_MAX_ENCODER_UNITS) {
+      //   targetPosition = Constants.TURRET_MAX_ENCODER_UNITS;
+      // } 
+      // if(targetPosition < Constants.TURRET_MIN_ENCODER_UNITS) {
+      //   targetPosition = Constants.TURRET_MIN_ENCODER_UNITS;
+      // }
       
 
     } else {
