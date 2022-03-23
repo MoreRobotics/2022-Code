@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     
+    // Constants.TURRET_OFFSET = (int)m_robotContainer.turret.getTurretPos();
     SmartDashboard.putNumber("Turret Offset", m_robotContainer.turret.getTurretPos());
     SmartDashboard.putNumber("Hood Target Angle", 0);
     
@@ -56,12 +57,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    //System.out.println(m_robotContainer.climber.limitSwitch.get());
 
-
-    SmartDashboard.putNumber("Turret Position", m_robotContainer.turret.getTurretPos());
-    double targetRPM = m_robotContainer.shooter.getShootRPM(SmartDashboard.getNumber("Distance", 0), SmartDashboard.getNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM));
-    SmartDashboard.putBoolean("Limit Switch Status", m_robotContainer.climber.safeCheck());
-    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

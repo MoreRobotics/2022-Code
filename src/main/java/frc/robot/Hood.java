@@ -25,25 +25,12 @@ public class Hood extends Servo {
     m_speed = speed;
   }
 
-  public double setAutoHood(double distance, double hoodPos) {
-
-    int closeHoodPos = Constants.CLOSE_SPOT_HOOD_POS;
-    double closeDistance = Constants.CLOSE_SPOT_LIMELIGHT_DISTANCE;
-    int farHoodPos = Constants.FAR_SPOT_HOOD_POS;
-    double farDistance = Constants.FAR_SPOT_LIMELIGHT_DISTANCE;
-
-    double shootHoodPos;
-
-
-    
-    shootHoodPos = ((farHoodPos - closeHoodPos)/(farDistance - closeDistance))*(distance - closeDistance);
-
+  public void setAutoHood(double distance) {
+    double shootHoodPos = ((Constants.FAR_SPOT_HOOD_POS - Constants.CLOSE_SPOT_HOOD_POS)/
+      (Constants.FAR_SPOT_LIMELIGHT_DISTANCE - Constants.CLOSE_SPOT_LIMELIGHT_DISTANCE))*
+      (distance - Constants.CLOSE_SPOT_LIMELIGHT_DISTANCE);
     SmartDashboard.putNumber("Hood Angle", shootHoodPos);
-
-    System.out.println(shootHoodPos);
     setPosition(shootHoodPos);
-    return shootHoodPos;
-
   }
 
   // moves actuator to desired position

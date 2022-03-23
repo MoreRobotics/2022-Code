@@ -20,7 +20,7 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   WPI_TalonFX climberLeft, climberRight, climberMid;
   XboxController operatorController;
-  DigitalInput limitSwitch;
+  public DigitalInput limitSwitch;
 
   public Climber() {
     SmartDashboard.putNumber("Rotate to", 0);
@@ -87,14 +87,12 @@ public class Climber extends SubsystemBase {
   }
 
   public void getClimberPos() {
-
     SmartDashboard.putNumber("Middle Climber Position", climberMid.getSelectedSensorPosition(0));
     SmartDashboard.putNumber("Left CLimber Position", climberLeft.getSelectedSensorPosition(0));
   }
 
   public void rotateBack() {
     //rotate the right and left climber motors to meet specified degrees
-    
     climberLeft.set(ControlMode.PercentOutput, -1.0);
   }
 
@@ -108,13 +106,7 @@ public class Climber extends SubsystemBase {
   }
 
   public void retractMiddle() {
-
-    if (!safeCheck()) {
-
-      climberMid.set(ControlMode.PercentOutput, -1.0);
-
-    }
-    
+    climberMid.set(ControlMode.PercentOutput, -1.0);    
   }
 
   public void stopPivot() {
@@ -126,21 +118,10 @@ public class Climber extends SubsystemBase {
   }
 
   //Checks limit switch
-  public Boolean safeCheck() {
+  public boolean safeCheck() {
+    
+    return limitSwitch.get();
 
-    Boolean safe;
-
-    if (limitSwitch.get()){
-
-      safe = true;
-
-    } else {
-
-      safe = false;
-
-    }
-
-    return safe;
   }
 
   @Override

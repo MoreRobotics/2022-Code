@@ -28,10 +28,9 @@ public class MoveHoodAuto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.hood1.setAutoHood(SmartDashboard.getNumber("Distance", 0), SmartDashboard.getNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM));
-    shooter.hood2.setAutoHood(SmartDashboard.getNumber("Distance", 0), SmartDashboard.getNumber("Shooter Target RPM", Constants.SHOOTER_TARGET_RPM));
-  }
+    shooter.autoHood();
 
+  }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
