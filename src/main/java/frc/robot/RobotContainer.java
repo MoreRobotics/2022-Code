@@ -15,11 +15,14 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -70,6 +73,7 @@ public class RobotContainer {
   POVButton driverDPadDownLeft = new POVButton(driverController, 225);
   POVButton driverDPadDownRight = new POVButton(driverController, 135);
 
+  Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -138,9 +142,12 @@ public class RobotContainer {
   */
   public void shooterHandler() {
     operatorXButton.whenHeld(new ParallelCommandGroup(
+      new InstantCommand(() ->{compressor.disable();}),
       new AimBot(shooter),
       new TurnTurret(turret),
-      new SequentialCommandGroup(new WaitCommand(2.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))));
+      new SequentialCommandGroup(new WaitCommand(2), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))));
+
+      operatorXButton.whenReleased(new InstantCommand(() ->{compressor.enableDigital();}));
   }
 
   /**
@@ -150,12 +157,13 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    // return new ParallelCommandGroup(
-    //   new SequentialCommandGroup(
-    //   new ParallelDeadlineGroup(new WaitCommand(1), new MoveTurret(turret, Constants.TURRET_UP_POSITION)), 
-    //   new ParallelDeadlineGroup(new WaitCommand(1), new RunShooter(shooter)), 
-    //   new ParallelDeadlineGroup(new WaitCommand(1.5), new RunTowerTransporter(transporter), new RunShooter(shooter)), 
-    //   new ParallelDeadlineGroup(new WaitCommand(1.5), new DriveForwardAuto(driveTrain))));
-    return new RunAuto(driveTrain, trajectoryManager.testPath);
+    return new ParallelCommandGroup(
+      new SequentialCommandGroup(
+        new ParallelDeadlineGroup(new WaitCommand(1.8), new DriveForwardAuto(driveTrain), new RunIntake(intake), new RunTransporter(transporter)),
+        
+        new ParallelDeadlineGroup(new WaitCommand(4.5), new AimBot(shooter), new TurnTurret(turret), 
+          new SequentialCommandGroup(new WaitCommand(1.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter)))
+      ));
+    //return new RunAuto(driveTrain, trajectoryManager.testPath);
   }
 }

@@ -172,7 +172,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void driveForward() {
-    drive.arcadeDrive(0.5, 0); // LOOK INTO WHAT THIS DOES
+    drive.arcadeDrive(-0.5, 0); // LOOK INTO WHAT THIS DOES
   }
 
   public RamseteCommand getRamseteCommand(Trajectory trajectory) {

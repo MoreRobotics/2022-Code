@@ -25,6 +25,23 @@ public class Intake extends SubsystemBase {
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
     raiseSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.FORWARD_CHANNEL, Constants.REVERSE_CHANNEL);
     intakeMotor.setInverted(true);
+
+    intakeMotor.configPeakCurrentLimit(20);
+
+    intakeMotor.configPeakCurrentDuration(100);
+
+    intakeMotor.configContinuousCurrentLimit(20);
+
+    intakeMotor.enableCurrentLimit(true);
+
+    //pdh ports
+    
+    //6 = left transporter
+    //7 = right transporter
+    //8 = tower
+    //9 = intake
+
+
   }
 
   public void startIntake() {

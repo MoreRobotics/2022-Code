@@ -25,6 +25,19 @@ public class Transporter extends SubsystemBase {
     transporterMotorRight.setInverted(true);
     transporterMotorLeft.setInverted(false);
     transporterMotorRight.follow(transporterMotorLeft);
+ 
+    transporterMotorLeft.configPeakCurrentLimit(20);
+    transporterMotorRight.configPeakCurrentLimit(20);
+
+    transporterMotorLeft.configPeakCurrentDuration(100);
+    transporterMotorRight.configPeakCurrentDuration(100);
+
+    transporterMotorLeft.configContinuousCurrentLimit(20);
+    transporterMotorRight.configContinuousCurrentLimit(20);
+
+    transporterMotorLeft.enableCurrentLimit(true);
+    transporterMotorRight.enableCurrentLimit(true);
+
   }
 
   public void startTowerTransporter() {
