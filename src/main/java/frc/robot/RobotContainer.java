@@ -45,6 +45,7 @@ public class RobotContainer {
   JoystickButton driverAButton = new JoystickButton(driverController, XboxController.Button.kA.value);
   JoystickButton driverBButton = new JoystickButton(driverController, XboxController.Button.kB.value);
   JoystickButton driverXButton = new JoystickButton(driverController, XboxController.Button.kX.value);
+  JoystickButton driverYButton = new JoystickButton(driverController, XboxController.Button.kY.value);
   JoystickButton driverLBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   JoystickButton driverRBumper = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
   
@@ -142,7 +143,7 @@ public class RobotContainer {
   */
   public void shooterHandler() {
     operatorXButton.whenHeld(new ParallelCommandGroup(
-      new InstantCommand(() ->{compressor.disable();}),
+      new InstantCommand(() -> compressor.disable()),
       new AimBot(shooter),
       new TurnTurret(turret),
       new SequentialCommandGroup(new WaitCommand(2), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))));
@@ -155,15 +156,16 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new ParallelCommandGroup(
       new SequentialCommandGroup(
         new ParallelDeadlineGroup(new WaitCommand(1.8), new DriveForwardAuto(driveTrain), new RunIntake(intake), new RunTransporter(transporter)),
         
-        new ParallelDeadlineGroup(new WaitCommand(4.5), new AimBot(shooter), new TurnTurret(turret), 
-          new SequentialCommandGroup(new WaitCommand(1.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter)))
-      ));
+        new ParallelDeadlineGroup(new WaitCommand(6), new AimBot(shooter), new TurnTurret(turret), 
+          new SequentialCommandGroup(new WaitCommand(3), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))))
+      );
     //return new RunAuto(driveTrain, trajectoryManager.testPath);
   }
 }
