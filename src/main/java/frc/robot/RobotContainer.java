@@ -9,8 +9,10 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -167,5 +169,45 @@ public class RobotContainer {
           new SequentialCommandGroup(new WaitCommand(3), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))))
       );
     //return new RunAuto(driveTrain, trajectoryManager.testPath);
+  }
+
+
+  public Command getPathPlannerCommand() {
+
+
+    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(Constants.ksVolts,
+        Constants.kvVoltSecondsPerMeter, Constants.kaVoltSecondsSquaredPerMeter), Constants.kDriveKinematics, 10);
+    // Create config for trajectory
+    TrajectoryConfig config = new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond,
+        Units.metersToInches(Constants.kMaxAccelerationMetersPerSecondSquared))
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    
+            
+    switch (Robot.chosenAutoPath) {
+
+      case 0:
+        System.out.println("Test Path");
+        System.out.println(trajectoryManager.testPath);
+        return new TestAutonomous(driveTrain, intake, trajectoryManager, trajectoryManager.testPath);
+
+      case 1:
+
+        System.out.println("Short Path");
+        return new TestAutonomous(driveTrain, intake, trajectoryManager, trajectoryManager.shortPath);
+
+      default:
+
+        System.out.println("Test Path");
+        return new TestAutonomous(driveTrain, intake, trajectoryManager, trajectoryManager.testPath);
+        
+    }
+            
+    //return new WaitCommand(4);
+
+
   }
 }

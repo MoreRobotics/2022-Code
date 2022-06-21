@@ -108,6 +108,14 @@ public final class Constants {
     public static final Gains kGains_Turret_Velocity = new Gains(5, 0, 0.5, 0.0, 300, 1.0);
 
 
+    public static final double ksVolts = 0.63;
+    public static final double kvVoltSecondsPerMeter = 2.38;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.175;
+    public static final double kPDriveVel = 2.08;
+    public static final double kMaxSpeedMetersPerSecond = 3.658;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 0.658;
+
+
     //close shooting spot
     public static final int CLOSE_SPOT_SHOOTER_RPM = 2150;
     public static final int CLOSE_SPOT_HOOD_POS = 0;
