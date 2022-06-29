@@ -38,7 +38,6 @@ public class RobotContainer {
   Climber climber = new Climber();
   Turret turret = new Turret();
   Transporter transporter = new Transporter();
-  TrajectoryManager trajectoryManager = new TrajectoryManager();
 
   //XboxController setup
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
@@ -164,6 +163,5 @@ public class RobotContainer {
         new ParallelDeadlineGroup(new WaitCommand(4.5), new AimBot(shooter), new TurnTurret(turret), 
           new SequentialCommandGroup(new WaitCommand(1.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter)))
       ));
-    //return new RunAuto(driveTrain, trajectoryManager.testPath);
   }
 }
