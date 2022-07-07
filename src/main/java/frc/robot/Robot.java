@@ -6,6 +6,13 @@ package frc.robot;
 
 
 
+import org.opencv.video.Video;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CameraServerCvJNI;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode;
+import edu.wpi.first.cscore.VideoSource;
 import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,6 +33,7 @@ import frc.robot.subsystems.Shooter;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -40,6 +48,14 @@ public class Robot extends TimedRobot {
     // Constants.TURRET_OFFSET = (int)m_robotContainer.turret.getTurretPos();
     SmartDashboard.putNumber("Turret Offset", m_robotContainer.turret.getTurretPos());
     SmartDashboard.putNumber("Hood Target Angle", 0);
+
+    final UsbCamera usbCamera = CameraServer.startAutomaticCapture();
+    
+    usbCamera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 160, 120, 30));
+
+    
+
+    // SmartDashboard.
     
   }
 
