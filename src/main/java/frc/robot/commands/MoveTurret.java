@@ -9,21 +9,21 @@ import frc.robot.subsystems.Turret;
 
 public class MoveTurret extends CommandBase {
 
-  private final Turret turret;
+  private final Turret turret_class_object;
   private final int pos;
   /** Creates a new MoveTurret. */
-  public MoveTurret(Turret turret, int pos) {
-    this.turret = turret;
+  public MoveTurret(Turret turret_object, int pos) {
+    this.turret_class_object = turret_object;
     
     this.pos = pos;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(turret);
+    addRequirements(turret_class_object);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turret.setTurretPos(pos);
+    turret_class_object.setTurretPos(pos);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -33,7 +33,7 @@ public class MoveTurret extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    turret.stopTurret();
+    turret_class_object.stopTurret();
   }
 
   // Returns true when the command should end.

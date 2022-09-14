@@ -97,12 +97,9 @@ public class RobotContainer {
   }
 
   private void turretHandler() {
-    operatorDPadLeft.whenHeld(new TurnTurretLeft(turret));
-    operatorDPadDownLeft.whenHeld(new TurnTurretLeft(turret));
-    operatorDPadUpLeft.whenHeld(new TurnTurretLeft(turret));
-    operatorDPadRight.whenHeld(new TurnTurretRight(turret));
-    operatorDPadDownRight.whenHeld(new TurnTurretRight(turret));
-    operatorDPadUpRight.whenHeld(new TurnTurretRight(turret));
+    // Turn Turret Here
+    operatorDPadLeft.whenHeld(new MoveTurretLeft(turret));
+    operatorDPadRight.whenHeld(new MoveTurretRight(turret));
     operatorDPadUp.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_POSITION));     
     operatorAButton.whenHeld(new ParallelCommandGroup(new TurnTurret(turret), new MoveHoodAuto(shooter)));
   }

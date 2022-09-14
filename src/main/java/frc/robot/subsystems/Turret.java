@@ -93,13 +93,14 @@ public class Turret extends SubsystemBase {
     turretMotor.set(ControlMode.Position, targetPosition + Constants.TURRET_OFFSET);
   }
 
-  public void percentTurretLeft() {
-    turretMotor.set(ControlMode.PercentOutput, -0.3);
+  public void turnLeft() {
+    turretMotor.set(ControlMode.PercentOutput, 0.333);
+  }
+  public void turnRight() {
+    turretMotor.set(ControlMode.PercentOutput, -0.333);
   }
 
-  public void percentTurretRight() {
-    turretMotor.set(ControlMode.PercentOutput, 0.3);
-  }
+
 
   public void setTurretPos(int pos) {
     turretMotor.set(ControlMode.Position, pos + Constants.TURRET_OFFSET);

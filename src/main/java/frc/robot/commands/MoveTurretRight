@@ -7,22 +7,23 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret;
 
-public class TurnTurretLeft extends CommandBase {
-
+public class MoveTurretRight extends CommandBase {
+   
   private final Turret turret;
-  /** Creates a new TurnTurretLeft. */
-  public TurnTurretLeft(Turret turret) {
-    this.turret = turret;
+
+  public MoveTurretRight(Turret turret) {
+      
+      this.turret = turret;
+    
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(turret);
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turret.percentTurretLeft();
+    turret.turnRight();
   }
-
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
