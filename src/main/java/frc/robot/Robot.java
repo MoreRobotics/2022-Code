@@ -14,7 +14,9 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoMode;
 import edu.wpi.first.cscore.VideoSource;
 import edu.wpi.first.util.net.PortForwarder;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -33,6 +35,8 @@ import frc.robot.subsystems.Shooter;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private SendableChooser<Integer> autoPathChooser;
+  public static int chosenPath;
   
 
   /**
@@ -54,6 +58,11 @@ public class Robot extends TimedRobot {
     usbCamera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 160, 120, 30));
 
     
+    autoPathChooser = new SendableChooser<Integer>(); 
+    autoPathChooser.setDefaultOption("2 Ball", 0);
+    autoPathChooser.addOption("4 Ball", 1);
+
+    SmartDashboard.putData(autoPathChooser);
 
     // SmartDashboard.
     
@@ -89,6 +98,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    chosenPath = autoPathChooser.getSelected();
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)

@@ -11,6 +11,7 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -38,6 +39,7 @@ public class RobotContainer {
   Climber climber = new Climber();
   Turret turret = new Turret();
   Transporter transporter = new Transporter();
+  RevMotorSub revMotorSub = new RevMotorSub();
 
   //XboxController setup
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
@@ -94,6 +96,7 @@ public class RobotContainer {
     intakeHandler();
     climberHandler();
     shooterHandler();
+    revHandler();
   }
 
   private void turretHandler() {
@@ -126,10 +129,16 @@ public class RobotContainer {
   private void climberHandler() {
     driverLBumper.whenHeld(new ExtendClimber(climber));
     driverRBumper.whenHeld(new RetractClimber(climber));
-    driverDPadDown.whenHeld(new RotateClimberBackward(climber));
-    driverDPadUp.whenHeld(new RotateClimberForward(climber));
+    //driverDPadDown.whenHeld(new RotateClimberBackward(climber));
+    //driverDPadUp.whenHeld(new RotateClimberForward(climber));
   }
 
+  private void revHandler() {
+
+    driverDPadUp.whenHeld(new DriveRevMotorForward(revMotorSub));
+    driverDPadDown.whenHeld(new DriveRevMotorBackward(revMotorSub));
+    
+  }
   /*
   public void shooterHandler() {
     operatorXButton.whenHeld(new SequentialCommandGroup(
@@ -156,12 +165,37 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new ParallelCommandGroup(
-      new SequentialCommandGroup(
-        new ParallelDeadlineGroup(new WaitCommand(1.8), new DriveForwardAuto(driveTrain), new RunIntake(intake), new RunTransporter(transporter)),
-        
-        new ParallelDeadlineGroup(new WaitCommand(4.5), new AimBot(shooter), new TurnTurret(turret), 
-          new SequentialCommandGroup(new WaitCommand(1.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter)))
-      ));
+    switch (Robot.chosenPath) {
+      case 0: 
+        return new SequentialCommandGroup(
+            new ParallelDeadlineGroup(new WaitCommand(1.8), new DriveForwardAuto(driveTrain), new RunIntake(intake), new RunTransporter(transporter)),
+            new ParallelDeadlineGroup(new WaitCommand(4.5), new AimBot(shooter), new TurnTurret(turret), 
+              new SequentialCommandGroup(new WaitCommand(1.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter)))
+        );
+      case 1: 
+        return new SequentialCommandGroup(
+            // Robot drives and picks up first ball
+            new ParallelDeadlineGroup(new WaitCommand(1.8), new DriveForwardAuto(driveTrain), new RunIntake(intake), new RunTransporter(transporter)),
+            // Robot shoots both balls it is currently holding
+            new ParallelDeadlineGroup(new WaitCommand(3.8), new AimBot(shooter), new TurnTurret(turret), 
+              new SequentialCommandGroup(new WaitCommand(1.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))),
+
+            /*----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+            // Robot drives and picks up second ball
+            new ParallelDeadlineGroup(new WaitCommand(3.4), new DriveForwardAuto(driveTrain), new RunIntake(intake), new RunTransporter(transporter)),
+            // Robot waits for human player to feed last ball
+            new ParallelDeadlineGroup(new WaitCommand(0.1), new RunIntake(intake), new RunTransporter(transporter)),
+            // Robot drives back towards shooting position
+            new ParallelDeadlineGroup(new WaitCommand(2.1), new DriveBackwardAuto(driveTrain)),
+            // Robot shoots last 2 balls
+            new ParallelDeadlineGroup(new WaitCommand(3.8), new AimBot(shooter), new TurnTurret(turret), 
+              new SequentialCommandGroup(new WaitCommand(1.5), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter)))
+        );
+    }
+
+    return new WaitCommand(0);
+    
+
   }
 }

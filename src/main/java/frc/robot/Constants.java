@@ -109,7 +109,7 @@ public final class Constants {
 
 
     //close shooting spot
-    public static final int CLOSE_SPOT_SHOOTER_RPM = 2150;
+    public static final int CLOSE_SPOT_SHOOTER_RPM = 2225;
     public static final int CLOSE_SPOT_HOOD_POS = 0;
     public static final double CLOSE_SPOT_LIMELIGHT_DISTANCE = 1.638;
 
@@ -119,4 +119,7 @@ public final class Constants {
     public static final int FAR_SPOT_HOOD_POS = 50;
     public static final double FAR_SPOT_LIMELIGHT_DISTANCE = 3.170;
 
+    //rev motor testing
+    public static final int REV_MOTOR_ID = 16;
+    public static final double REV_MOTOR_SPEED = 1.0;
 }

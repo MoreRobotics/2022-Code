@@ -171,8 +171,12 @@ public class DriveTrain extends SubsystemBase {
     System.out.println("Pose " + odometry.getPoseMeters());
   }
 
-  public void driveForward() {
-    drive.arcadeDrive(-0.5, 0); // LOOK INTO WHAT THIS DOES
+  public void 
+  driveForward() {
+    drive.arcadeDrive(-0.50, 0); // LOOK INTO WHAT THIS DOES
+  }
+  public void driveBackward() {
+    drive.arcadeDrive(0.50, 0); // LOOK INTO WHAT THIS DOES
   }
 
   public RamseteCommand getRamseteCommand(Trajectory trajectory) {

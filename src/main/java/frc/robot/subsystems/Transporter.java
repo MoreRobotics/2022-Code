@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import org.opencv.features2d.FlannBasedMatcher;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,7 +25,8 @@ public class Transporter extends SubsystemBase {
     towerMotor = new TalonSRX(Constants.TOWER_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
     transporterMotorRight.setInverted(true);
-    transporterMotorLeft.setInverted(false);
+    transporterMotorLeft.setInverted(true);
+    towerMotor.setInverted(false);
     transporterMotorRight.follow(transporterMotorLeft);
  
     transporterMotorLeft.configPeakCurrentLimit(20);
