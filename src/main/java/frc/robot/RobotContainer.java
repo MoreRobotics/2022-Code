@@ -105,6 +105,12 @@ public class RobotContainer {
     operatorDPadUpRight.whenHeld(new TurnTurretRight(turret));
     operatorDPadUp.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_POSITION));     
     operatorAButton.whenHeld(new ParallelCommandGroup(new TurnTurret(turret), new MoveHoodAuto(shooter)));
+    
+    //Aimbot (for competition)
+    //operatorAButton.whenHeld(new ParallelCommandGroup(new TurnTurret(turret), new MoveHoodAuto(shooter)));
+
+    //Dummy shoot (for open house)
+    operatorAButton.whenHeld(new RunDummyShooter(shooter));
   }
 
   private void hoodHandler() {
@@ -140,9 +146,23 @@ public class RobotContainer {
 
   */
   public void shooterHandler() {
+
+    //Aimbot (for competition)
+    /*
     operatorXButton.whenHeld(new ParallelCommandGroup(
       new InstantCommand(() ->{compressor.disable();}),
       new AimBot(shooter),
+      new TurnTurret(turret),
+      new SequentialCommandGroup(new WaitCommand(2), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))));
+
+      operatorXButton.whenReleased(new InstantCommand(() ->{compressor.enableDigital();}));
+
+    */
+
+    //Dummy shoot (for open house)
+    operatorXButton.whenHeld(new ParallelCommandGroup(
+      new InstantCommand(() ->{compressor.disable();}),
+      new RunDummyShooter(shooter),
       new TurnTurret(turret),
       new SequentialCommandGroup(new WaitCommand(2), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))));
 

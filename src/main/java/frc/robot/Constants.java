@@ -21,6 +21,8 @@ public final class Constants {
     public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 0;
     public static final int DRIVE_TRAIN_MID_LEFT_ID = 5;
     public static final int DRIVE_TRAIN_MID_RIGHT_ID = 1;
+
+    public static final double DRIVE_SPEED = 0.7;
  
     //shooter motors (change later)
     public static final int SHOOTER_LEFT_ID = 7;
@@ -56,7 +58,7 @@ public final class Constants {
 
     //Shooter
     public static final int kTimeoutMs = 30;
-    public static final double SHOOTER_SPEED = 1;
+    public static final double SHOOTER_SPEED = 0.5;
     public static final double ENCODER_UNITS_TO_DEGREES = 2048.0/360.0 * 10;
     public static final int SHOOTER_SLOT_INDEX_ID = 0;
     public static final int SHOOTER_TARGET_RPM = 2150;
