@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import org.photonvision.PhotonCamera;
@@ -36,7 +37,7 @@ import frc.robot.Constants;
 import frc.robot.commands.ArcadeDrive;
 
 public class DriveTrain extends SubsystemBase {
-  WPI_TalonFX falconFrontRight, falconRearRight, falconMidRight, falconFrontLeft, falconRearLeft, falconMidLeft;
+  WPI_VictorSPX victorFrontRight, victorRearRight, victorMidRight, victorFrontLeft, victorRearLeft, victorMidLeft;
   MotorControllerGroup rightDrive, leftDrive;
   DifferentialDrive drive;
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
@@ -65,15 +66,15 @@ public class DriveTrain extends SubsystemBase {
   SlewRateLimiter slewRateLimiter;
 
   public DriveTrain() {
-
-    falconFrontRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_FRONT_RIGHT_ID);
-    falconRearRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_REAR_RIGHT_ID);
-    // falconMidRight = new WPI_TalonFX(Constants.DRIVE_TRAIN_MID_RIGHT_ID);
-    rightDrive = new MotorControllerGroup(falconFrontRight, falconRearRight/*, falconMidRight*/);
-    falconFrontLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_FRONT_LEFT_ID);
-    falconRearLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_REAR_LEFT_ID);
-    //falconMidLeft = new WPI_TalonFX(Constants.DRIVE_TRAIN_MID_LEFT_ID);
-    leftDrive = new MotorControllerGroup(falconFrontLeft, falconRearLeft/*, falconMidLeft*/);
+    
+    victorFrontRight = new WPI_VictorSPX(Constants.DRIVE_TRAIN_FRONT_RIGHT_ID);
+    victorRearRight = new WPI_VictorSPX(Constants.DRIVE_TRAIN_REAR_RIGHT_ID);
+    // victorMidRight = new WPI_VictorSPX(Constants.DRIVE_TRAIN_MID_RIGHT_ID);
+    rightDrive = new MotorControllerGroup(victorFrontRight, victorRearRight/*, victorMidRight*/);
+    victorFrontLeft = new WPI_VictorSPX(Constants.DRIVE_TRAIN_FRONT_LEFT_ID);
+    victorRearLeft = new WPI_VictorSPX(Constants.DRIVE_TRAIN_REAR_LEFT_ID);
+    //victorMidLeft = new WPI_VictorSPX(Constants.DRIVE_TRAIN_MID_LEFT_ID);
+    leftDrive = new MotorControllerGroup(victorFrontLeft, victorRearLeft/*, victorMidLeft*/);
 
     drive = new DifferentialDrive(rightDrive, leftDrive);     
 
@@ -85,8 +86,8 @@ public class DriveTrain extends SubsystemBase {
 
     slewRateLimiter = new SlewRateLimiter(2.5); //CHANGED FROM 1.2
 
-    final TalonSRX gyroMotor = new TalonSRX(Constants.INTAKE_MOTOR_ID);
-    gyro = new PigeonIMU(gyroMotor);
+    //final WPI_VictorSPX gyroMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR_ID);
+    //gyro = new PigeonIMU(gyroMotor);
 
     rightDrive.setInverted(true);
 
@@ -94,31 +95,31 @@ public class DriveTrain extends SubsystemBase {
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
-    falconFrontLeft.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
-    falconFrontRight.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
-    falconRearLeft.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
-    falconRearRight.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
+    // victorFrontLeft.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
+    // victorFrontRight.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
+    // victorRearLeft.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
+    // victorRearRight.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
  
-    falconFrontLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kTimeoutMs);
-    falconRearLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kTimeoutMs);
-    falconFrontRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kTimeoutMs);
-    falconRearRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kTimeoutMs);
+    victorFrontLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kTimeoutMs);
+    victorRearLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kTimeoutMs);
+    victorFrontRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kTimeoutMs);
+    victorRearRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kTimeoutMs);
 
-    falconFrontRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-    falconFrontLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-    falconRearRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-    falconRearLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+    victorFrontRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+    victorFrontLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+    victorRearRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+    victorRearLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
 
-    // falconFrontLeft.setSensorPhase(true);
-    // falconFrontRight.setSensorPhase(true);
+    // victorFrontLeft.setSensorPhase(true);
+    // victorFrontRight.setSensorPhase(true);
 
     camera = new PhotonCamera("gloworm");
 
-    falconFrontRight.setNeutralMode(NeutralMode.Brake);
-    falconRearRight.setNeutralMode(NeutralMode.Brake);
+    victorFrontRight.setNeutralMode(NeutralMode.Brake);
+    victorRearRight.setNeutralMode(NeutralMode.Brake);
 
-    falconFrontLeft.setNeutralMode(NeutralMode.Brake);
-    falconRearLeft.setNeutralMode(NeutralMode.Brake);
+    victorFrontLeft.setNeutralMode(NeutralMode.Brake);
+    victorRearLeft.setNeutralMode(NeutralMode.Brake);
     
   }
 
@@ -126,8 +127,8 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     odometry.update(
       Rotation2d.fromDegrees(getHeading()),
-      falconFrontLeft.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE,
-      falconFrontRight.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION *  Constants.WHEEL_CIRCUMFERENCE);
+      victorFrontLeft.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE,
+      victorFrontRight.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION *  Constants.WHEEL_CIRCUMFERENCE);
     SmartDashboard.putNumber("Compass Heading", getHeading());
   }
 
@@ -135,15 +136,15 @@ public class DriveTrain extends SubsystemBase {
     //double speed = Math.pow(driverController.getLeftY(), 2);
     // System.out.println(slewRateLimiter.calculate(driverController.getLeftY()));
     // System.out.println(driverController.getRightX()*0.7);
-    drive.arcadeDrive(slewRateLimiter.calculate(driverController.getLeftY()), driverController.getRightX());
+    drive.arcadeDrive(Constants.DRIVE_SPEED*driverController.getLeftY(), Constants.DRIVE_SPEED*driverController.getRightX());
   }
 
   public void setCoast() {
-    falconFrontRight.setNeutralMode(NeutralMode.Coast);
-    falconRearRight.setNeutralMode(NeutralMode.Coast);
+    victorFrontRight.setNeutralMode(NeutralMode.Coast);
+    victorRearRight.setNeutralMode(NeutralMode.Coast);
 
-    falconFrontLeft.setNeutralMode(NeutralMode.Coast);
-    falconRearLeft.setNeutralMode(NeutralMode.Coast);
+    victorFrontLeft.setNeutralMode(NeutralMode.Coast);
+    victorRearLeft.setNeutralMode(NeutralMode.Coast);
   }
 
   public double getHeading() {
@@ -158,14 +159,14 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void setPose(Trajectory path) {
-    falconFrontRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-    falconFrontLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-    falconRearRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-    falconRearLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-    System.out.println("FalconRearLeft: " + falconRearLeft.getSelectedSensorPosition(0));
-    System.out.println("FalconRearRight: " + falconRearRight.getSelectedSensorPosition(0));
-    System.out.println("FalconFrontLeft: " + falconFrontLeft.getSelectedSensorPosition(0));
-    System.out.println("FalconFrontRight: " + falconFrontRight.getSelectedSensorPosition(0));
+    victorFrontRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+    victorFrontLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+    victorRearRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+    victorRearLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+    System.out.println("victorRearLeft: " + victorRearLeft.getSelectedSensorPosition(0));
+    System.out.println("victorRearRight: " + victorRearRight.getSelectedSensorPosition(0));
+    System.out.println("victorFrontLeft: " + victorFrontLeft.getSelectedSensorPosition(0));
+    System.out.println("victorFrontRight: " + victorFrontRight.getSelectedSensorPosition(0));
     
     odometry.resetPosition(path.getInitialPose(), Rotation2d.fromDegrees(getHeading()));
     System.out.println("Pose " + odometry.getPoseMeters());
@@ -201,8 +202,8 @@ public class DriveTrain extends SubsystemBase {
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(
-      falconFrontLeft.getSelectedSensorVelocity() / 10 / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE,
-      falconFrontRight.getSelectedSensorVelocity() / 10 / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE);
+      victorFrontLeft.getSelectedSensorVelocity() / 10 / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE,
+      victorFrontRight.getSelectedSensorVelocity() / 10 / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE);
   }
 
 }
