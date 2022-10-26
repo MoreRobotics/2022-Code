@@ -11,6 +11,7 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Compressor;
@@ -102,6 +104,11 @@ public class RobotContainer {
     operatorDPadRight.whenHeld(new MoveTurretRight(turret));
     operatorDPadUp.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_POSITION));     
     operatorAButton.whenHeld(new ParallelCommandGroup(new TurnTurret(turret), new MoveHoodAuto(shooter)));
+    // Turn Turret Here
+    operatorDPadLeft.whenHeld(new MoveTurretLeft(turret));
+    operatorDPadRight.whenHeld(new MoveTurretRight(turret));
+    operatorDPadUp.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_POSITION));
+    
   }
 
   private void hoodHandler() {
