@@ -135,7 +135,7 @@ public class DriveTrain extends SubsystemBase {
     //double speed = Math.pow(driverController.getLeftY(), 2);
     // System.out.println(slewRateLimiter.calculate(driverController.getLeftY()));
     // System.out.println(driverController.getRightX()*0.7);
-    drive.arcadeDrive(slewRateLimiter.calculate(driverController.getLeftY()), driverController.getRightX());
+    drive.arcadeDrive(slewRateLimiter.calculate(driverController.getLeftY()*Constants.DRIVE_SPEED), driverController.getRightX()*Constants.DRIVE_SPEED);
   }
 
   public void setCoast() {

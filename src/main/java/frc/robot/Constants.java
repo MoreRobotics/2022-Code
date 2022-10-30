@@ -22,7 +22,7 @@ public final class Constants {
     public static final int DRIVE_TRAIN_MID_LEFT_ID = 5;
     public static final int DRIVE_TRAIN_MID_RIGHT_ID = 1;
 
-    public static final double DRIVE_SPEED = 0.7;
+    public static final double DRIVE_SPEED = 0.6;
  
     //shooter motors (change later)
     public static final int SHOOTER_LEFT_ID = 7;
