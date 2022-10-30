@@ -22,7 +22,7 @@ public class Transporter extends SubsystemBase {
     transporterMotorRight = new TalonSRX(Constants.TRANSPORTER_MOTOR_RIGHT);
     towerMotor = new TalonSRX(Constants.TOWER_MOTOR_ID);
     operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
-    transporterMotorRight.setInverted(true);
+    transporterMotorRight.setInverted(false);
     transporterMotorLeft.setInverted(false);
     transporterMotorRight.follow(transporterMotorLeft);
  
@@ -53,7 +53,7 @@ public class Transporter extends SubsystemBase {
   }
 
   public void startTransporter() {
-    transporterMotorLeft.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
+    transporterMotorLeft.set(ControlMode.PercentOutput, -Constants.TRANSPORTER_SPEED);
   }
 
   public void stopTransporter() {
@@ -61,7 +61,7 @@ public class Transporter extends SubsystemBase {
   }
 
   public void reverseTransporter() {
-    transporterMotorLeft.set(ControlMode.PercentOutput, -Constants.TRANSPORTER_SPEED);
+    transporterMotorLeft.set(ControlMode.PercentOutput, Constants.TRANSPORTER_SPEED);
   }
 
   @Override

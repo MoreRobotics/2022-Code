@@ -15,12 +15,14 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int DRIVE_TRAIN_FRONT_LEFT_ID = 3;
+    public static final int DRIVE_TRAIN_FRONT_LEFT_ID = 1;
     public static final int DRIVE_TRAIN_FRONT_RIGHT_ID = 4;
-    public static final int DRIVE_TRAIN_REAR_LEFT_ID = 2;
-    public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 0;
+    public static final int DRIVE_TRAIN_REAR_LEFT_ID = 3;
+    public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 2;
     public static final int DRIVE_TRAIN_MID_LEFT_ID = 5;
     public static final int DRIVE_TRAIN_MID_RIGHT_ID = 1;
+
+    public static final double DRIVE_SPEED = -0.6;
  
     //shooter motors (change later)
     public static final int SHOOTER_LEFT_ID = 7;
@@ -78,7 +80,7 @@ public final class Constants {
     //Turret
     public static final int TURRET_MOTOR_ID = 8;
     public static final double TURRET_DEGREES_TO_ENCODER = 4096.0/360.0;
-    public static final int TURRET_OFFSET = 569;
+    public static final int TURRET_OFFSET = -3515;
     public static final int TURRET_MAX_ENCODER_UNITS = 4095;
     public static final int TURRET_MIN_ENCODER_UNITS = 0;
     //Turret relative position values

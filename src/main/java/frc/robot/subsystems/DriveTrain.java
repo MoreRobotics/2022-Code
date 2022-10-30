@@ -58,7 +58,7 @@ public class DriveTrain extends SubsystemBase {
 
   PIDController leftPIDController, rightPIDController;
 
-  PigeonIMU gyro;
+  //PigeonIMU gyro;
 
   DifferentialDriveOdometry odometry;
 
@@ -86,13 +86,13 @@ public class DriveTrain extends SubsystemBase {
     slewRateLimiter = new SlewRateLimiter(2.5); //CHANGED FROM 1.2
 
     final TalonSRX gyroMotor = new TalonSRX(Constants.INTAKE_MOTOR_ID);
-    gyro = new PigeonIMU(gyroMotor);
+    //gyro = new PigeonIMU(gyroMotor);
 
     rightDrive.setInverted(true);
 
-    zeroHeading();
+    //zeroHeading();
 
-    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+   // odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
     falconFrontLeft.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
     falconFrontRight.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
@@ -124,11 +124,11 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    odometry.update(
-      Rotation2d.fromDegrees(getHeading()),
-      falconFrontLeft.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE,
-      falconFrontRight.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION *  Constants.WHEEL_CIRCUMFERENCE);
-    SmartDashboard.putNumber("Compass Heading", getHeading());
+    // odometry.update(
+    //   Rotation2d.fromDegrees(getHeading()),
+    //   victorFrontLeft.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE,
+    //   victorFrontRight.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION *  Constants.WHEEL_CIRCUMFERENCE);
+    // SmartDashboard.putNumber("Compass Heading", getHeading());
   }
 
   public void drive() {
@@ -146,16 +146,16 @@ public class DriveTrain extends SubsystemBase {
     falconRearLeft.setNeutralMode(NeutralMode.Coast);
   }
 
-  public double getHeading() {
-    double[] ypr = new double[3];
-    gyro.getYawPitchRoll(ypr);
-    //System.out.println("Yaw " + ypr[0]);
-    return Math.IEEEremainder(ypr[0], 360);
-  }
+  // public double getHeading() {
+  //   // double[] ypr = new double[3];
+  //   // gyro.getYawPitchRoll(ypr);
+  //   // //System.out.println("Yaw " + ypr[0]);
+  //   // return Math.IEEEremainder(ypr[0], 360);
+  // }
 
-  public void zeroHeading() {
-    gyro.setYaw(0);
-  }
+  // public void zeroHeading() {
+    //gyro.setYaw(0);
+  // }
 
   public void setPose(Trajectory path) {
     falconFrontRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
@@ -167,8 +167,8 @@ public class DriveTrain extends SubsystemBase {
     System.out.println("FalconFrontLeft: " + falconFrontLeft.getSelectedSensorPosition(0));
     System.out.println("FalconFrontRight: " + falconFrontRight.getSelectedSensorPosition(0));
     
-    odometry.resetPosition(path.getInitialPose(), Rotation2d.fromDegrees(getHeading()));
-    System.out.println("Pose " + odometry.getPoseMeters());
+    // odometry.resetPosition(path.getInitialPose(), Rotation2d.fromDegrees(getHeading()));
+    // System.out.println("Pose " + odometry.getPoseMeters());
   }
 
   public void driveForward() {
