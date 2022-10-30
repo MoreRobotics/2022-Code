@@ -168,7 +168,6 @@ public class Shooter extends SubsystemBase {
     hood2.setAutoHood(SmartDashboard.getNumber("Distance", 0));
   }
   
-  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

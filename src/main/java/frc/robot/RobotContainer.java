@@ -140,6 +140,8 @@ public class RobotContainer {
 
   */
   public void shooterHandler() {
+
+    /*
     operatorXButton.whenHeld(new ParallelCommandGroup(
       new InstantCommand(() ->{compressor.disable();}),
       new AimBot(shooter),
@@ -147,6 +149,10 @@ public class RobotContainer {
       new SequentialCommandGroup(new WaitCommand(2), new ParallelDeadlineGroup(new WaitCommand(1.0), new RunTower(transporter)), new RunTowerTransporter(transporter))));
 
       operatorXButton.whenReleased(new InstantCommand(() ->{compressor.enableDigital();}));
+
+    */
+    operatorXButton.whenHeld(new RunShooter(shooter));
+    
   }
 
   /**

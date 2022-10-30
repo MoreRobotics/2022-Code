@@ -155,7 +155,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void zeroHeading() {
-    gyro.setYaw(0);
+    //gyro.setYaw(0);
   }
 
   public void setPose(Trajectory path) {
