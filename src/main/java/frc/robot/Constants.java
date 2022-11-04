@@ -15,10 +15,10 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int DRIVE_TRAIN_FRONT_LEFT_ID = 3;
+    public static final int DRIVE_TRAIN_FRONT_LEFT_ID = 1;
     public static final int DRIVE_TRAIN_FRONT_RIGHT_ID = 4;
-    public static final int DRIVE_TRAIN_REAR_LEFT_ID = 2;
-    public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 0;
+    public static final int DRIVE_TRAIN_REAR_LEFT_ID = 3;
+    public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 2;
     public static final int DRIVE_TRAIN_MID_LEFT_ID = 5;
     public static final int DRIVE_TRAIN_MID_RIGHT_ID = 1;
 

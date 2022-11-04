@@ -70,7 +70,7 @@ public class DriveTrain extends SubsystemBase {
     victorFrontRight = new WPI_VictorSPX(Constants.DRIVE_TRAIN_FRONT_RIGHT_ID);
     victorRearRight = new WPI_VictorSPX(Constants.DRIVE_TRAIN_REAR_RIGHT_ID);
     // victorMidRight = new WPI_VictorSPX(Constants.DRIVE_TRAIN_MID_RIGHT_ID);
-    rightDrive = new MotorControllerGroup(victorFrontRight, victorRearRight/*, victorMidRight*/);
+    rightDrive = new MotorControllerGroup(victorFrontRight/*, victorRearRight/*, victorMidRight*/);
     victorFrontLeft = new WPI_VictorSPX(Constants.DRIVE_TRAIN_FRONT_LEFT_ID);
     victorRearLeft = new WPI_VictorSPX(Constants.DRIVE_TRAIN_REAR_LEFT_ID);
     //victorMidLeft = new WPI_VictorSPX(Constants.DRIVE_TRAIN_MID_LEFT_ID);
@@ -89,11 +89,11 @@ public class DriveTrain extends SubsystemBase {
     //final WPI_VictorSPX gyroMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR_ID);
     //gyro = new PigeonIMU(gyroMotor);
 
-    rightDrive.setInverted(true);
+    leftDrive.setInverted(true);
 
-    zeroHeading();
+   // zeroHeading();
 
-    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+   // odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
     // victorFrontLeft.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
     // victorFrontRight.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 15, 0.5));
@@ -125,11 +125,11 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    odometry.update(
+    /*odometry.update(
       Rotation2d.fromDegrees(getHeading()),
       victorFrontLeft.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE,
       victorFrontRight.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION *  Constants.WHEEL_CIRCUMFERENCE);
-    SmartDashboard.putNumber("Compass Heading", getHeading());
+    SmartDashboard.putNumber("Compass Heading", getHeading());*/
   }
 
   public void drive() {
@@ -147,12 +147,13 @@ public class DriveTrain extends SubsystemBase {
     victorRearLeft.setNeutralMode(NeutralMode.Coast);
   }
 
-  public double getHeading() {
+  /*public double getHeading() {
     double[] ypr = new double[3];
     gyro.getYawPitchRoll(ypr);
     //System.out.println("Yaw " + ypr[0]);
     return Math.IEEEremainder(ypr[0], 360);
   }
+  */
 
   public void zeroHeading() {
     //gyro.setYaw(0);
@@ -168,7 +169,7 @@ public class DriveTrain extends SubsystemBase {
     System.out.println("victorFrontLeft: " + victorFrontLeft.getSelectedSensorPosition(0));
     System.out.println("victorFrontRight: " + victorFrontRight.getSelectedSensorPosition(0));
     
-    odometry.resetPosition(path.getInitialPose(), Rotation2d.fromDegrees(getHeading()));
+    // odometry.resetPosition(path.getInitialPose(), Rotation2d.fromDegrees(getHeading()));
     System.out.println("Pose " + odometry.getPoseMeters());
   }
 
