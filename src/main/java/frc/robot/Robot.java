@@ -46,12 +46,12 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     
     // Constants.TURRET_OFFSET = (int)m_robotContainer.turret.getTurretPos();
-    SmartDashboard.putNumber("Turret Offset", m_robotContainer.turret.getTurretPos());
-    SmartDashboard.putNumber("Hood Target Angle", 0);
+    // SmartDashboard.putNumber("Turret Offset", m_robotContainer.turret.getTurretPos());
+    // SmartDashboard.putNumber("Hood Target Angle", 0);
 
-    final UsbCamera usbCamera = CameraServer.startAutomaticCapture();
+    // final UsbCamera usbCamera = CameraServer.startAutomaticCapture();
     
-    usbCamera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 160, 120, 30));
+    // usbCamera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 160, 120, 30));
 
     
 

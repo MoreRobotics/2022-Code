@@ -20,7 +20,7 @@ public final class Constants {
     public static final int DRIVE_TRAIN_REAR_LEFT_ID = 3;
     public static final int DRIVE_TRAIN_REAR_RIGHT_ID = 2;
     public static final int DRIVE_TRAIN_MID_LEFT_ID = 5;
-    public static final int DRIVE_TRAIN_MID_RIGHT_ID = 1;
+    public static final int DRIVE_TRAIN_MID_RIGHT_ID = 6;
 
     public static final double DRIVE_SPEED = 0.6;
  

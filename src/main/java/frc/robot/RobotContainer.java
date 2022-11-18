@@ -4,25 +4,25 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+//import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+//import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+//import edu.wpi.first.math.trajectory.Trajectory;
+//import edu.wpi.first.math.trajectory.TrajectoryConfig;
+//import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+//import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+//import edu.wpi.first.wpilibj.Compressor;
+//import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -72,7 +72,7 @@ public class RobotContainer {
   POVButton driverDPadDownLeft = new POVButton(driverController, 225);
   POVButton driverDPadDownRight = new POVButton(driverController, 135);
 
-  Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+  // Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -88,47 +88,47 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    turretHandler();
-    hoodHandler();
-    outtakeHandler();
-    intakeHandler();
-    climberHandler();
-    shooterHandler();
+    // turretHandler();
+    // hoodHandler();
+    // outtakeHandler();
+    // intakeHandler();
+    // climberHandler();
+    // shooterHandler();
   }
 
-  private void turretHandler() {
-    operatorDPadLeft.whenHeld(new TurnTurretLeft(turret));
-    operatorDPadDownLeft.whenHeld(new TurnTurretLeft(turret));
-    operatorDPadUpLeft.whenHeld(new TurnTurretLeft(turret));
-    operatorDPadRight.whenHeld(new TurnTurretRight(turret));
-    operatorDPadDownRight.whenHeld(new TurnTurretRight(turret));
-    operatorDPadUpRight.whenHeld(new TurnTurretRight(turret));
-    operatorDPadUp.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_POSITION));     
-    operatorAButton.whenHeld(new ParallelCommandGroup(new TurnTurret(turret), new MoveHoodAuto(shooter)));
-  }
+  // private void turretHandler() {
+  //   operatorDPadLeft.whenHeld(new TurnTurretLeft(turret));
+  //   operatorDPadDownLeft.whenHeld(new TurnTurretLeft(turret));
+  //   operatorDPadUpLeft.whenHeld(new TurnTurretLeft(turret));
+  //   operatorDPadRight.whenHeld(new TurnTurretRight(turret));
+  //   operatorDPadDownRight.whenHeld(new TurnTurretRight(turret));
+  //   operatorDPadUpRight.whenHeld(new TurnTurretRight(turret));
+  //   operatorDPadUp.whenHeld(new MoveTurret(turret, Constants.TURRET_UP_POSITION));     
+  //   operatorAButton.whenHeld(new ParallelCommandGroup(new TurnTurret(turret), new MoveHoodAuto(shooter)));
+  // }
 
-  private void hoodHandler() {
-    operatorRBumper.whenHeld(new HoodUp(shooter));
-    operatorLBumper.whenHeld(new HoodDown(shooter));
-  }
-
-
-  private void outtakeHandler() {
-    driverAButton.whenHeld(new ReverseTowerTransporter(transporter));
-  }
+  // private void hoodHandler() {
+  //   operatorRBumper.whenHeld(new HoodUp(shooter));
+  //   operatorLBumper.whenHeld(new HoodDown(shooter));
+  // }
 
 
-  private void intakeHandler() {
-    driverXButton.whenHeld(new ParallelCommandGroup(new RunIntake(intake), new RunTransporter(transporter)));
-  }
+  // private void outtakeHandler() {
+  //   driverAButton.whenHeld(new ReverseTowerTransporter(transporter));
+  // }
 
 
-  private void climberHandler() {
-    driverLBumper.whenHeld(new ExtendClimber(climber));
-    driverRBumper.whenHeld(new RetractClimber(climber));
-    driverDPadDown.whenHeld(new RotateClimberBackward(climber));
-    driverDPadUp.whenHeld(new RotateClimberForward(climber));
-  }
+  // private void intakeHandler() {
+  //   driverXButton.whenHeld(new ParallelCommandGroup(new RunIntake(intake), new RunTransporter(transporter)));
+  // }
+
+
+  // private void climberHandler() {
+  //   driverLBumper.whenHeld(new ExtendClimber(climber));
+  //   driverRBumper.whenHeld(new RetractClimber(climber));
+  //   driverDPadDown.whenHeld(new RotateClimberBackward(climber));
+  //   driverDPadUp.whenHeld(new RotateClimberForward(climber));
+  // }
 
   /*
   public void shooterHandler() {

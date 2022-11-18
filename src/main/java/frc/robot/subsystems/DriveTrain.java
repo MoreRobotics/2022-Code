@@ -41,7 +41,7 @@ public class DriveTrain extends SubsystemBase {
   MotorControllerGroup rightDrive, leftDrive;
   DifferentialDrive drive;
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
-  PhotonCamera camera;
+  //PhotonCamera camera;
 
   final double LINEAR_P = 0.1;
   final double LINEAR_D = 0.0;
@@ -59,7 +59,7 @@ public class DriveTrain extends SubsystemBase {
 
   PIDController leftPIDController, rightPIDController;
 
-  PigeonIMU gyro;
+  //PigeonIMU gyro;
 
   DifferentialDriveOdometry odometry;
 
@@ -113,7 +113,7 @@ public class DriveTrain extends SubsystemBase {
     // victorFrontLeft.setSensorPhase(true);
     // victorFrontRight.setSensorPhase(true);
 
-    camera = new PhotonCamera("gloworm");
+   // camera = new PhotonCamera("gloworm");
 
     victorFrontRight.setNeutralMode(NeutralMode.Brake);
     victorRearRight.setNeutralMode(NeutralMode.Brake);
@@ -130,13 +130,14 @@ public class DriveTrain extends SubsystemBase {
       victorFrontLeft.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION * Constants.WHEEL_CIRCUMFERENCE,
       victorFrontRight.getSelectedSensorPosition() / Constants.EDGES_PER_REVOLUTION *  Constants.WHEEL_CIRCUMFERENCE);
     SmartDashboard.putNumber("Compass Heading", getHeading());*/
+
   }
 
   public void drive() {
     //double speed = Math.pow(driverController.getLeftY(), 2);
     // System.out.println(slewRateLimiter.calculate(driverController.getLeftY()));
     // System.out.println(driverController.getRightX()*0.7);
-    drive.arcadeDrive(Constants.DRIVE_SPEED*driverController.getLeftY(), Constants.DRIVE_SPEED*driverController.getRightX());
+    //drive.arcadeDrive(Constants.DRIVE_SPEED*driverController.getLeftY(), Constants.DRIVE_SPEED*driverController.getRightX());
   }
 
   public void setCoast() {
@@ -147,17 +148,16 @@ public class DriveTrain extends SubsystemBase {
     victorRearLeft.setNeutralMode(NeutralMode.Coast);
   }
 
-  /*public double getHeading() {
-    double[] ypr = new double[3];
-    gyro.getYawPitchRoll(ypr);
+ // public double getHeading() {
+  //  double[] ypr = new double[3];
+  //  gyro.getYawPitchRoll(ypr);
     //System.out.println("Yaw " + ypr[0]);
-    return Math.IEEEremainder(ypr[0], 360);
-  }
-  */
+  //  return Math.IEEEremainder(ypr[0], 360);
+ //}
 
-  public void zeroHeading() {
-    //gyro.setYaw(0);
-  }
+ // public void zeroHeading() {
+  //  gyro.setYaw(0);
+  //}
 
   public void setPose(Trajectory path) {
     victorFrontRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
