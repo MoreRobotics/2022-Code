@@ -89,6 +89,7 @@ public class DriveTrain extends SubsystemBase {
     //gyro = new PigeonIMU(gyroMotor);
 
     rightDrive.setInverted(true);
+    //falconFrontLeft.setInverted(true);
 
     //zeroHeading();
 

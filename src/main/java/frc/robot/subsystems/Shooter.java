@@ -15,6 +15,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
@@ -23,7 +25,9 @@ import org.photonvision.targeting.PhotonPipelineResult;
 
 public class Shooter extends SubsystemBase {
 
-  WPI_TalonFX shooterLeft, shooterRight;
+  WPI_VictorSPX shooterLeft;
+  WPI_TalonFX shooterRight;
+  WPI_TalonSRX SRXshooter;
   XboxController operatorController;
   public Hood hood1, hood2;
   PhotonCamera camera;
@@ -35,7 +39,7 @@ public class Shooter extends SubsystemBase {
 
     hood1 = new Hood(Constants.ACTUATOR1_PORT, Constants.ACTUATOR_LENGTH, Constants.ACTUATOR_SPEED);
     hood2 = new Hood(Constants.ACTUATOR2_PORT, Constants.ACTUATOR_LENGTH, Constants.ACTUATOR_SPEED);
-    shooterLeft = new WPI_TalonFX(Constants.SHOOTER_LEFT_ID);
+    shooterLeft = new WPI_VictorSPX(Constants.SHOOTER_LEFT_ID);
     shooterRight = new WPI_TalonFX(Constants.SHOOTER_RIGHT_ID);
 
     camera = new PhotonCamera("gloworm");
@@ -104,12 +108,16 @@ public class Shooter extends SubsystemBase {
   }
 
   //gets the encoder value of the left wheel
+  //Commented out for demonstration robot purposes
+
+  /*
   public double getWheelPosition() {
     double currentPositionEncoderUnits = shooterLeft.getSensorCollection().getIntegratedSensorPosition();
     double currentPositionDegrees = currentPositionEncoderUnits / Constants.ENCODER_UNITS_TO_DEGREES;
 
     return currentPositionDegrees;
   }
+  */
 
   //sets the encoder value
   public void zeroWheels() {

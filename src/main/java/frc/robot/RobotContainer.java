@@ -140,6 +140,8 @@ public class RobotContainer {
 
   */
   public void shooterHandler() {
+
+    
     operatorXButton.whenHeld(new ParallelCommandGroup(
       new InstantCommand(() ->{compressor.disable();}),
       new AimBot(shooter),
