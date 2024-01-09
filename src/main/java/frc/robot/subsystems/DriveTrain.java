@@ -29,6 +29,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -120,6 +121,9 @@ public class DriveTrain extends SubsystemBase {
 
     victorFrontLeft.setNeutralMode(NeutralMode.Brake);
     victorRearLeft.setNeutralMode(NeutralMode.Brake);
+
+    PneumaticHub hub = new PneumaticHub();
+    double pressure = hub.getPressure(0);
     
   }
 
